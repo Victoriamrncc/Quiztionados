@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Juego {
     private List<Pregunta> preguntas;
     private Puntaje puntaje;
+    private List<Pregunta> preguntasFiltradas;
 
     public Juego() {
         this.puntaje = new Puntaje();
@@ -26,20 +28,64 @@ public class Juego {
             // Leer el archivo JSON
             ObjectMapper mapper = new ObjectMapper();
             preguntas = mapper.readValue(inputStream, new TypeReference<List<Pregunta>>() {});
+            preguntasFiltradas = preguntas; // Al principio mostramos todas las preguntas
         } catch (IOException e) {
             System.out.println("Error al cargar las preguntas: " + e.getMessage());
         }
     }
 
+    public void seleccionarDificultad() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Selecciona la dificultad del juego:");
+        System.out.println("1. Fácil");
+        System.out.println("2. Intermedio");
+        System.out.println("3. Difícil");
+        System.out.print("Selecciona una opción: ");
+        int dificultadSeleccionada = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer
+
+        String dificultad = "";
+        switch (dificultadSeleccionada) {
+            case 1:
+                dificultad = "fácil";
+                break;
+            case 2:
+                dificultad = "intermedio";
+                break;
+            case 3:
+                dificultad = "difícil";
+                break;
+            default:
+                System.out.println("Opción no válida.");
+                return;
+        }
+
+        // Filtramos las preguntas según la dificultad seleccionada
+        String finalDificultad = dificultad;
+        preguntasFiltradas = preguntas.stream()
+                .filter(pregunta -> {
+                    // Usar la dificultad de la pregunta para hacer la comparación
+                    return pregunta.getDificultad().equalsIgnoreCase(finalDificultad);
+                })
+                .collect(Collectors.toList());
+
+        if (preguntasFiltradas.isEmpty()) {
+            System.out.println("No hay preguntas disponibles para esta dificultad.");
+        } else {
+            System.out.println("Dificultad seleccionada: " + dificultad);
+        }
+    }
+
+
     public void jugar() {
-        if (preguntas == null || preguntas.isEmpty()) {
+        if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
             System.out.println("No hay preguntas cargadas.");
             return;
         }
 
         Scanner scanner = new Scanner(System.in);
 
-        for (Pregunta pregunta : preguntas) {
+        for (Pregunta pregunta : preguntasFiltradas) {
             System.out.println(pregunta);
             System.out.print("Tu respuesta (número): ");
             int respuesta = scanner.nextInt();
@@ -72,3 +118,4 @@ public class Juego {
         }
     }
 }
+

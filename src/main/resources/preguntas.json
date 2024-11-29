@@ -1,12 +1,179 @@
 [
   {
     "enunciado": "¿Cuál es la capital de Francia?",
-    "opciones": ["París", "Londres", "Roma", "Madrid"],
-    "respuestaCorrecta": "París"
+    "opciones": ["Madrid", "Paris", "Londres", "Roma"],
+    "respuestaCorrecta": "Paris",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
   },
   {
-    "enunciado": "¿Cuántos continentes hay en el mundo?",
-    "opciones": ["5", "6", "7", "8"],
-    "respuestaCorrecta": "7"
+    "enunciado": "¿En qué continente se encuentra Egipto?",
+    "opciones": ["Asia", "Europa", "África", "Oceanía"],
+    "respuestaCorrecta": "África",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Es Australia un continente y un país?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Qué océano está al este de los Estados Unidos?",
+    "opciones": ["Atlántico", "Pacífico", "Índico", "Ártico"],
+    "respuestaCorrecta": "Atlántico",
+    "categoria": "Geografía",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿En qué continente se encuentra el Amazonas?",
+    "opciones": ["Asia", "África", "América", "Oceanía"],
+    "respuestaCorrecta": "América",
+    "categoria": "Geografía",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿El sol está en el centro del sistema solar?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Geografía",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuál es la montaña más alta del mundo?",
+    "opciones": ["K2", "Makalu", "Everest", "Kangchenjunga"],
+    "respuestaCorrecta": "Everest",
+    "categoria": "Geografía",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿El mar Muerto se encuentra en qué dos países?",
+    "opciones": ["Israel y Palestina", "Egipto y Jordania", "Israel y Jordania", "Egipto y Palestina"],
+    "respuestaCorrecta": "Israel y Jordania",
+    "categoria": "Geografía",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre de un desierto que se encuentra en África.",
+    "opciones": [],
+    "respuestaCorrecta": "Sáhara",
+    "categoria": "Geografía",
+    "dificultad": "difícil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Cuál es la capital de Japón?",
+    "opciones": ["Seúl", "Beijing", "Tokio", "Hanoi"],
+    "respuestaCorrecta": "Tokio",
+    "categoria": "Geografía",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Es cierto que el Monte Everest está en Nepal?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Geografía",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+
+  {
+    "enunciado": "¿Cuál es el elemento químico con el símbolo O?",
+    "opciones": ["Osmio", "Oxígeno", "Oro", "Ozono"],
+    "respuestaCorrecta": "Oxígeno",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Es el agua un compuesto formado por oxígeno e hidrógeno?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuántos planetas hay en el sistema solar?",
+    "opciones": ["8", "9", "7", "10"],
+    "respuestaCorrecta": "8",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Cuál es la fórmula química del agua?",
+    "opciones": ["H2O", "H2O2", "H2SO4", "CO2"],
+    "respuestaCorrecta": "H2O",
+    "categoria": "Ciencia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿El oro es un metal que se encuentra en la corteza terrestre?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿La teoría de la relatividad fue propuesta por?",
+    "opciones": ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Niels Bohr"],
+    "respuestaCorrecta": "Albert Einstein",
+    "categoria": "Ciencia",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Cuántos huesos tiene el cuerpo humano adulto?",
+    "opciones": ["206", "205", "210", "215"],
+    "respuestaCorrecta": "206",
+    "categoria": "Ciencia",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Cuál es el gas más abundante en la atmósfera terrestre?",
+    "opciones": ["Oxígeno", "Nitrógeno", "Argón", "Dióxido de carbono"],
+    "respuestaCorrecta": "Nitrógeno",
+    "categoria": "Ciencia",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del físico que desarrolló la teoría cuántica.",
+    "opciones": [],
+    "respuestaCorrecta": "Max Planck",
+    "categoria": "Ciencia",
+    "dificultad": "difícil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿La electricidad es un tipo de energía?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Quién fue el primer presidente de los Estados Unidos?",
+    "opciones": ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"],
+    "respuestaCorrecta": "George Washington",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
   }
 ]
