@@ -113,20 +113,36 @@ public class Juego {
             System.out.println("No hay preguntas cargadas.\n");
             return;
         }
-
         Scanner scanner = new Scanner(System.in);
-
         for (Pregunta pregunta : preguntasFiltradas) {
             System.out.println(pregunta);
             System.out.print("Tu respuesta (número): \n");
             int respuesta = scanner.nextInt();
             String opcionSeleccionada = pregunta.getOpciones().get(respuesta - 1);
 
-            if (opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
-                System.out.println("¡Correcto!\n");
-                puntaje.sumarPuntos(10);
+            boolean esCorrecta = opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta());
+
+            puntaje.sumarPuntosPorTipo(pregunta.getTipoPregunta(), esCorrecta);
+            if (esCorrecta) {
+                System.out.println("¡Correcto! Has ganado puntos.\n");
             } else {
                 System.out.println("Incorrecto. La respuesta correcta era: \n" + pregunta.getRespuestaCorrecta());
+            }
+        }
+
+            while (true) {
+            System.out.print("¿Deseas volver a jugar? (si/no): ");
+            String decision = scanner.next().toLowerCase();
+
+            if (decision.equals("si")) {
+                Menu menu = new Menu(this);
+                menu.mostrarMenu();
+                break;
+            } else if (decision.equals("no")) {
+                System.out.println("¡Gracias por jugar!");
+                break;
+            } else {
+                System.out.println("Respuesta no válida. Por favor, escribe 'si' o 'no'.");
             }
         }
     }
