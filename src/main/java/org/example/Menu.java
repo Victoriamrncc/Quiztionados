@@ -20,13 +20,13 @@ public class Menu {
             System.out.print("Selecciona una opción: ");
 
             int opcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
-                    // Seleccionar dificultad antes de empezar a jugar
-                    juego.seleccionarDificultad();
-                    juego.jugar();
+                    juego.seleccionarCategoria(); // Solicita al usuario seleccionar una categoría
+                    juego.seleccionarDificultad(); // Luego solicita seleccionar la dificultad
+                    juego.jugar(); // Inicia el juego
                     continuar = false;
                     break;
                 case 2:
