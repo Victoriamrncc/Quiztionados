@@ -113,21 +113,39 @@ public class Juego {
             System.out.println("No hay preguntas cargadas.\n");
             return;
         }
+
         Scanner scanner = new Scanner(System.in);
+
         for (Pregunta pregunta : preguntasFiltradas) {
-            System.out.println(pregunta);
-            System.out.print("Tu respuesta (número): \n");
-            int respuesta = scanner.nextInt();
-            String opcionSeleccionada = pregunta.getOpciones().get(respuesta - 1);
+            System.out.println(pregunta.getEnunciado());
+            if (pregunta.getTipoPregunta().equals("input")) {
 
-            boolean esCorrecta = opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta());
+                System.out.print("Escribe tu respuesta: ");
+                String respuesta = scanner.nextLine();
 
-            puntaje.sumarPuntosPorTipo(pregunta.getTipoPregunta(), esCorrecta);
+                if (respuesta.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
+                    System.out.println("¡Correcto!\n");
+                    puntaje.sumarPuntos(10);
+                } else {
+                    System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
+                }
 
-            if (esCorrecta) {
-                System.out.println("¡Correcto! Has ganado puntos.\n");
-            } else {
-                System.out.println("Incorrecto. La respuesta correcta era: \n" + pregunta.getRespuestaCorrecta());
+            } else if (pregunta.getTipoPregunta().equals("selección múltiple")||pregunta.getTipoPregunta().equals("verdadero/falso")){
+
+                for (int i = 0; i < pregunta.getOpciones().size(); i++) {
+                    System.out.println((i + 1) + ". " + pregunta.getOpciones().get(i));
+                }
+                System.out.print("Tu respuesta (número): ");
+                int respuesta = scanner.nextInt();
+                String opcionSeleccionada = pregunta.getOpciones().get(respuesta - 1);
+
+                if (opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
+                    System.out.println("¡Correcto!\n");
+                    puntaje.sumarPuntos(10);
+                } else {
+                    System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
+                }
+                scanner.nextLine();
             }
         }
     }
