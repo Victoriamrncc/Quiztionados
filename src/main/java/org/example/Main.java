@@ -1,11 +1,14 @@
 package org.example;
+
 public class Main {
     public static void main(String[] args) {
         Juego juego = new Juego();
 
         juego.cargarPreguntas("preguntas.json");
 
-        juego.jugar();
+        Menu menu = new Menu(juego);
+
+        menu.mostrarMenu();
 
         juego.guardarPuntaje("puntaje.ser");
 
