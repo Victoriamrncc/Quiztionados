@@ -42,25 +42,20 @@ public class Juego {
         int categoriaSeleccionada = scanner.nextInt();
         scanner.nextLine();
 
-        String categoria = "";
-        switch (categoriaSeleccionada) {
-            case 1:
-                categoria = "Historia";
-                break;
-            case 2:
-                categoria = "Ciencia";
-                break;
-            case 3:
-                categoria = "Geografía";
-                break;
-            default:
+        String categoria = switch (categoriaSeleccionada) {
+            case 1 -> "Historia";
+            case 2 -> "Ciencia";
+            case 3 -> "Geografía";
+            default -> {
                 System.out.println("Opción no válida.\n");
-                return;
-        }
+                yield null;
+            }
+        };
 
-        String finalCategoria = categoria;
+        if (categoria == null) return;
+
         preguntasFiltradas = preguntas.stream()
-                .filter(pregunta -> pregunta.getCategoria().equalsIgnoreCase(finalCategoria))
+                .filter(pregunta -> pregunta.getCategoria() != null && pregunta.getCategoria().equalsIgnoreCase(categoria))
                 .collect(Collectors.toList());
 
         if (preguntasFiltradas.isEmpty()) {
@@ -72,41 +67,41 @@ public class Juego {
 
     public void seleccionarDificultad() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Selecciona la dificultad del juego:");
-        System.out.println("1. Fácil");
-        System.out.println("2. Intermedio");
-        System.out.println("3. Difícil");
-        System.out.print("Selecciona una opción: ");
-        int dificultadSeleccionada = scanner.nextInt();
-        scanner.nextLine();
+        String dificultad = null;
 
-        String dificultad = "";
-        switch (dificultadSeleccionada) {
-            case 1:
-                dificultad = "fácil";
-                break;
-            case 2:
-                dificultad = "intermedio";
-                break;
-            case 3:
-                dificultad = "difícil";
-                break;
-            default:
-                System.out.println("Opción no válida.\n");
-                return;
+        while (dificultad == null) {
+            System.out.println("Selecciona la dificultad del juego:");
+            System.out.println("1. Fácil");
+            System.out.println("2. Intermedio");
+            System.out.println("3. Difícil");
+            System.out.print("Selecciona una opción: ");
+            int dificultadSeleccionada = scanner.nextInt();
+            scanner.nextLine();
+
+            dificultad = switch (dificultadSeleccionada) {
+                case 1 -> "fácil";
+                case 2 -> "intermedio";
+                case 3 -> "difícil";
+                default -> {
+                    System.out.println("Opción no válida. Por favor, selecciona una opción válida.\n");
+                    yield null;
+                }
+            };
         }
+
 
         String finalDificultad = dificultad;
         preguntasFiltradas = preguntas.stream()
-                .filter(pregunta -> pregunta.getDificultad().equalsIgnoreCase(finalDificultad))
+                .filter(pregunta -> pregunta.getDificultad() != null && pregunta.getDificultad().equalsIgnoreCase(finalDificultad))
                 .collect(Collectors.toList());
 
         if (preguntasFiltradas.isEmpty()) {
             System.out.println("No hay preguntas disponibles para esta dificultad.\n");
         } else {
-            System.out.println("Dificultad seleccionada: \n" + dificultad);
+            System.out.println("Dificultad seleccionada: " + dificultad);
         }
     }
+
 
     public void jugar() {
         if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
@@ -118,25 +113,39 @@ public class Juego {
 
         for (Pregunta pregunta : preguntasFiltradas) {
             System.out.println(pregunta.getEnunciado());
-            if (pregunta.getTipoPregunta().equals("input")) {
 
-                System.out.print("Escribe tu respuesta: ");
-                String respuesta = scanner.nextLine();
+            switch (pregunta.getTipoPregunta()) {
+                case "input" -> manejarPreguntaTexto(scanner, pregunta);
+                case "selección múltiple", "verdadero/falso" -> manejarPreguntaOpciones(scanner, pregunta);
+                default -> System.out.println("Tipo de pregunta desconocido.\n");
+            }
+        }
+    }
 
-                if (respuesta.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
-                    System.out.println("¡Correcto!\n");
-                    puntaje.sumarPuntos(10);
-                } else {
-                    System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
-                }
+    private void manejarPreguntaTexto(Scanner scanner, Pregunta pregunta) {
+        System.out.print("Escribe tu respuesta: ");
+        String respuesta = scanner.nextLine();
 
-            } else if (pregunta.getTipoPregunta().equals("selección múltiple")||pregunta.getTipoPregunta().equals("verdadero/falso")){
+        if (respuesta.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
+            System.out.println("¡Correcto!\n");
+            puntaje.sumarPuntos(10);
+        } else {
+            System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
+        }
+    }
 
-                for (int i = 0; i < pregunta.getOpciones().size(); i++) {
-                    System.out.println((i + 1) + ". " + pregunta.getOpciones().get(i));
-                }
-                System.out.print("Tu respuesta (número): ");
-                int respuesta = scanner.nextInt();
+    private void manejarPreguntaOpciones(Scanner scanner, Pregunta pregunta) {
+        boolean respuestaValida = false;
+        while (!respuestaValida) {
+            for (int i = 0; i < pregunta.getOpciones().size(); i++) {
+                System.out.println((i + 1) + ". " + pregunta.getOpciones().get(i));
+            }
+
+            System.out.print("Tu respuesta (número): ");
+            int respuesta = scanner.nextInt();
+            scanner.nextLine();  // Limpiar el buffer
+
+            if (respuesta >= 1 && respuesta <= pregunta.getOpciones().size()) {
                 String opcionSeleccionada = pregunta.getOpciones().get(respuesta - 1);
 
                 if (opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
@@ -145,10 +154,14 @@ public class Juego {
                 } else {
                     System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
                 }
-                scanner.nextLine();
+
+                respuestaValida = true; // Salir del bucle si la respuesta es válida
+            } else {
+                System.out.println("Opción no válida. Por favor, selecciona una opción dentro del rango.\n");
             }
         }
     }
+
 
     public void guardarPuntaje(String archivo) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
