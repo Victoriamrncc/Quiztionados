@@ -123,26 +123,11 @@ public class Juego {
             boolean esCorrecta = opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta());
 
             puntaje.sumarPuntosPorTipo(pregunta.getTipoPregunta(), esCorrecta);
+
             if (esCorrecta) {
                 System.out.println("¡Correcto! Has ganado puntos.\n");
             } else {
                 System.out.println("Incorrecto. La respuesta correcta era: \n" + pregunta.getRespuestaCorrecta());
-            }
-        }
-
-            while (true) {
-            System.out.print("¿Deseas volver a jugar? (si/no): ");
-            String decision = scanner.next().toLowerCase();
-
-            if (decision.equals("si")) {
-                Menu menu = new Menu(this);
-                menu.mostrarMenu();
-                break;
-            } else if (decision.equals("no")) {
-                System.out.println("¡Gracias por jugar!");
-                break;
-            } else {
-                System.out.println("Respuesta no válida. Por favor, escribe 'si' o 'no'.");
             }
         }
     }
