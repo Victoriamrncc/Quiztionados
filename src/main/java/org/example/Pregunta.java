@@ -10,7 +10,6 @@ public class Pregunta implements Serializable {
     private String dificultad; // "facil", "intermedio", "dificil"
     private String tipoPregunta; // "multiple", "verdadero_falso", "texto"
 
-    // Getters y setters
     public String getEnunciado() {
         return enunciado;
     }

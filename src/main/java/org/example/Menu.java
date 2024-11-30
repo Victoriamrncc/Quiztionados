@@ -4,13 +4,14 @@ import java.util.Scanner;
 
 public class Menu {
     private Juego juego;
+    private final Scanner scanner;
 
     public Menu(Juego juego) {
         this.juego = juego;
+        this.scanner = new Scanner(System.in);
     }
 
     public void mostrarMenu() {
-        Scanner scanner = new Scanner(System.in);
         boolean continuar = true;
 
         while (continuar) {
@@ -20,21 +21,45 @@ public class Menu {
             System.out.print("Selecciona una opción: ");
 
             int opcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine();
 
             switch (opcion) {
-                case 1:
-                    // Seleccionar dificultad antes de empezar a jugar
-                    juego.seleccionarDificultad();
-                    juego.jugar();
-                    continuar = false;
-                    break;
-                case 2:
+                case 1 -> iniciarJuego();
+                case 2 -> {
                     System.out.println("¡Gracias por jugar!");
                     continuar = false;
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intenta de nuevo.");
+                }
+                default -> System.out.println("Opción no válida.");
+            }
+        }
+    }
+
+    private void iniciarJuego() {
+        boolean volverAJugar;
+        do {
+            juego.seleccionarCategoria();
+            juego.seleccionarDificultad();
+
+            System.out.println("Iniciando el juego con preguntas seleccionadas...");
+            juego.jugar();
+
+            volverAJugar = confirmar("¿Deseas volver a jugar? (si/no): ");
+        } while (volverAJugar);
+    }
+
+    private boolean confirmar(String mensaje) {
+        while (true) {
+            System.out.print(mensaje);
+            String respuesta = scanner.nextLine().trim().toLowerCase();
+
+            switch (respuesta) {
+                case "si", "sí" -> {
+                    return true;
+                }
+                case "no" -> {
+                    return false;
+                }
+                default -> System.out.println("Respuesta no válida. Escribe 'si' o 'no'.");
             }
         }
     }
