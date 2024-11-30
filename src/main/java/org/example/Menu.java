@@ -35,16 +35,16 @@ public class Menu {
     }
 
     private void iniciarJuego() {
-        while (true) {
+        boolean volverAJugar;
+        do {
             juego.seleccionarCategoria();
             juego.seleccionarDificultad();
+
+            System.out.println("Iniciando el juego con preguntas seleccionadas...");
             juego.jugar();
 
-            if (!confirmar("¿Deseas volver a jugar? (si/no): ")) {
-                System.out.println("¡Gracias por jugar!");
-                break;
-            }
-        }
+            volverAJugar = confirmar("¿Deseas volver a jugar? (si/no): ");
+        } while (volverAJugar);
     }
 
     private boolean confirmar(String mensaje) {

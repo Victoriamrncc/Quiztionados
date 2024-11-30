@@ -2,16 +2,16 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        Juego juego = new Juego();
+        Vidas juegoConVidas = new Vidas();
 
-        juego.cargarPreguntas("preguntas.json");
+        juegoConVidas.cargarPreguntas("preguntas.json");
 
-        Menu menu = new Menu(juego);
+        Menu menu = new Menu(juegoConVidas);
 
         menu.mostrarMenu();
 
-        juego.guardarPuntaje("puntaje.ser");
+        juegoConVidas.guardarPuntaje("puntaje.ser");
 
-        juego.cargarPuntaje("puntaje.ser");
+        juegoConVidas.cargarPuntaje("puntaje.ser");
     }
 }

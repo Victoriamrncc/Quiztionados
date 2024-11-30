@@ -8,9 +8,9 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Juego {
-    private List<Pregunta> preguntas;
-    private Puntaje puntaje;
-    private List<Pregunta> preguntasFiltradas;
+    protected List<Pregunta> preguntas;
+    protected Puntaje puntaje;
+    protected List<Pregunta> preguntasFiltradas;
 
     public Juego() {
         this.puntaje = new Puntaje();
@@ -67,6 +67,8 @@ public class Juego {
         if (preguntasFiltradas.isEmpty()) {
             System.out.println("No hay preguntas disponibles para esta categoría.\n");
         }
+
+        System.out.println("Preguntas disponibles: " + preguntasFiltradas.size());
     }
 
     public void seleccionarDificultad() {
@@ -125,6 +127,8 @@ public class Juego {
                 default -> System.out.println("Tipo de pregunta desconocido.\n");
             }
         }
+
+        System.out.println("¡Has completado todas las preguntas de esta categoría y dificultad!");
     }
 
     private void manejarPreguntaTexto(Scanner scanner, Pregunta pregunta) {
