@@ -19,10 +19,9 @@ public class Menu {
             System.out.println("1. Iniciar Juego");
             System.out.println("2. Salir");
             System.out.print("Selecciona una opción: ");
+            String entrada = scanner.nextLine();
 
-            int opcion = scanner.nextInt();
-            scanner.nextLine();
-
+            int opcion = ValidadorRespuestas.validarEntradaMenu(entrada, 2);
             switch (opcion) {
                 case 1 -> iniciarJuego();
                 case 2 -> {

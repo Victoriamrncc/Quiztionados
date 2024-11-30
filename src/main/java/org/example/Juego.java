@@ -11,9 +11,11 @@ public class Juego {
     protected List<Pregunta> preguntas;
     protected Puntaje puntaje;
     protected List<Pregunta> preguntasFiltradas;
+    private Temporizador temporizador;
 
     public Juego() {
         this.puntaje = new Puntaje();
+        this.temporizador = new Temporizador();
     }
 
     public void cargarPreguntas(String nombreArchivo) {
@@ -94,9 +96,9 @@ public class Juego {
                 }
             };
         }
+        temporizador.configurarTiempoPorDificultad(dificultad);
 
         String finalDificultad = dificultad;
-
         preguntasFiltradas = preguntasFiltradas.stream()
                 .filter(pregunta -> pregunta.getDificultad() != null && pregunta.getDificultad().equalsIgnoreCase(finalDificultad))
                 .collect(Collectors.toList());
@@ -108,8 +110,6 @@ public class Juego {
         }
     }
 
-
-
     public void jugar() {
         if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
             System.out.println("No hay preguntas cargadas.\n");
@@ -119,8 +119,15 @@ public class Juego {
         Scanner scanner = new Scanner(System.in);
 
         for (Pregunta pregunta : preguntasFiltradas) {
-            System.out.println(pregunta.getEnunciado());
+            if (temporizador.iniciarTemporizador()) {
+                System.out.println(pregunta.getEnunciado());
 
+                String respuesta = scanner.nextLine();
+                if (!respuesta.isEmpty()) {
+                    System.out.println("Tu respuesta: " + respuesta);
+                }
+                temporizador.detenerTemporizador();
+            }
             switch (pregunta.getTipoPregunta()) {
                 case "input" -> manejarPreguntaTexto(scanner, pregunta);
                 case "selección múltiple", "verdadero/falso" -> manejarPreguntaOpciones(scanner, pregunta);
@@ -133,6 +140,7 @@ public class Juego {
 
     private void manejarPreguntaTexto(Scanner scanner, Pregunta pregunta) {
         String respuesta;
+        temporizador.iniciarTemporizador();
         do {
             System.out.print("Escribe tu respuesta: ");
             respuesta = scanner.nextLine();
@@ -140,6 +148,8 @@ public class Juego {
                 System.out.println("Respuesta no válida. Por favor, ingresa un texto válido.");
             }
         } while (!ValidadorRespuestas.validarRespuestaTexto(respuesta));
+
+        temporizador.detenerTemporizador();
 
         if (respuesta.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
             System.out.println("¡Correcto!\n");
@@ -151,6 +161,7 @@ public class Juego {
 
     private void manejarPreguntaOpciones(Scanner scanner, Pregunta pregunta) {
         boolean respuestaValida = false;
+        temporizador.iniciarTemporizador();
         while (!respuestaValida) {
             for (int i = 0; i < pregunta.getOpciones().size(); i++) {
                 System.out.println((i + 1) + ". " + pregunta.getOpciones().get(i));
@@ -175,6 +186,7 @@ public class Juego {
                 System.out.println("Opción no válida. Por favor, selecciona una opción dentro del rango.\n");
             }
         }
+        temporizador.detenerTemporizador();
     }
 
 
@@ -195,4 +207,5 @@ public class Juego {
             System.out.println("Error al cargar el puntaje: \n" + e.getMessage());
         }
     }
+
 }

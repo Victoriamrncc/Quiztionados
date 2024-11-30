@@ -11,8 +11,17 @@ public class ValidadorRespuestas {
         return respuesta != null && !respuesta.trim().isEmpty();
     }
 
-    public static boolean validarRespuestaVerdaderoFalso(String respuesta) {
-        return respuesta.equalsIgnoreCase("verdadero") || respuesta.equalsIgnoreCase("falso");
+    public static int validarEntradaMenu(String entrada, int opcionesValidas) {
+        try {
+            int opcion = Integer.parseInt(entrada);
+            if (opcion >= 1 && opcion <= opcionesValidas) {
+                return opcion;
+            }
+        } catch (NumberFormatException e) {
+
+        }
+        return -1;
     }
+
 }
 
