@@ -34,34 +34,38 @@ public class Juego {
 
     public void seleccionarCategoria() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Selecciona la categoría del juego:");
-        System.out.println("1. Historia");
-        System.out.println("2. Ciencia");
-        System.out.println("3. Geografía");
-        System.out.print("Selecciona una opción: ");
-        int categoriaSeleccionada = scanner.nextInt();
-        scanner.nextLine();
+        String categoria = null;
 
-        String categoria = switch (categoriaSeleccionada) {
-            case 1 -> "Historia";
-            case 2 -> "Ciencia";
-            case 3 -> "Geografía";
-            default -> {
-                System.out.println("Opción no válida.\n");
-                yield null;
-            }
-        };
+        while (categoria == null) {
+            System.out.println("Selecciona la categoría del juego:");
+            System.out.println("1. Historia");
+            System.out.println("2. Ciencia");
+            System.out.println("3. Geografía");
+            System.out.print("Selecciona una opción: ");
+            int categoriaSeleccionada = scanner.nextInt();
+            scanner.nextLine();
 
-        if (categoria == null) return;
+            categoria = switch (categoriaSeleccionada) {
+                case 1 -> "Historia";
+                case 2 -> "Ciencia";
+                case 3 -> "Geografía";
+                default -> {
+                    System.out.println("Opción no válida. Por favor, selecciona una opción válida.\n");
+                    yield null;
+                }
+            };
+        }
 
+        System.out.println("Categoría seleccionada: " + categoria);
+
+        String finalCategoria = categoria;
         preguntasFiltradas = preguntas.stream()
-                .filter(pregunta -> pregunta.getCategoria() != null && pregunta.getCategoria().equalsIgnoreCase(categoria))
+                .filter(pregunta -> pregunta.getCategoria() != null &&
+                        pregunta.getCategoria().trim().equalsIgnoreCase(finalCategoria))
                 .collect(Collectors.toList());
 
         if (preguntasFiltradas.isEmpty()) {
             System.out.println("No hay preguntas disponibles para esta categoría.\n");
-        } else {
-            System.out.println("Categoría seleccionada: " + categoria);
         }
     }
 
@@ -89,9 +93,9 @@ public class Juego {
             };
         }
 
-
         String finalDificultad = dificultad;
-        preguntasFiltradas = preguntas.stream()
+
+        preguntasFiltradas = preguntasFiltradas.stream()
                 .filter(pregunta -> pregunta.getDificultad() != null && pregunta.getDificultad().equalsIgnoreCase(finalDificultad))
                 .collect(Collectors.toList());
 
@@ -101,6 +105,7 @@ public class Juego {
             System.out.println("Dificultad seleccionada: " + dificultad);
         }
     }
+
 
 
     public void jugar() {
