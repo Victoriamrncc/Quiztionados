@@ -17,7 +17,8 @@ public class Menu {
         while (continuar) {
             System.out.println("=== MENÚ DEL JUEGO ===");
             System.out.println("1. Iniciar Juego");
-            System.out.println("2. Salir");
+            System.out.println("2. Ver Mejores Puntajes");
+            System.out.println("3. Salir");
             System.out.print("Selecciona una opción: ");
 
             int opcion = scanner.nextInt();
@@ -25,7 +26,8 @@ public class Menu {
 
             switch (opcion) {
                 case 1 -> iniciarJuego();
-                case 2 -> {
+                case 2 -> mostrarBestScores();
+                case 3 -> {
                     System.out.println("¡Gracias por jugar!");
                     continuar = false;
                 }
@@ -37,14 +39,22 @@ public class Menu {
     private void iniciarJuego() {
         boolean volverAJugar;
         do {
+            System.out.println("Por favor, ingresa tu nombre: ");
+            String playerName = scanner.nextLine(); // Obtener el nombre del jugador
+
             juego.seleccionarCategoria();
             juego.seleccionarDificultad();
 
             System.out.println("Iniciando el juego con preguntas seleccionadas...");
-            juego.jugar();
+            juego.jugar(playerName); // Pasar el nombre del jugador a este método
 
             volverAJugar = confirmar("¿Deseas volver a jugar? (si/no): ");
         } while (volverAJugar);
+    }
+
+    private void mostrarBestScores() {
+        System.out.println("=== Mejores Puntajes ===");
+        juego.mostrarBestScores(); // Mostrar los mejores puntajes
     }
 
     private boolean confirmar(String mensaje) {

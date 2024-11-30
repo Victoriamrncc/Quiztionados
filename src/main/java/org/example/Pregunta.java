@@ -7,8 +7,8 @@ public class Pregunta implements Serializable {
     private List<String> opciones;
     private String respuestaCorrecta;
     private String categoria;
-    private String dificultad; // "facil", "intermedio", "dificil"
-    private String tipoPregunta; // "multiple", "verdadero_falso", "texto"
+    private String dificultad;
+    private String tipoPregunta;
 
     public String getEnunciado() {
         return enunciado;

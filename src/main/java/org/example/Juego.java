@@ -3,17 +3,56 @@ package org.example;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Juego {
     protected List<Pregunta> preguntas;
     protected Puntaje puntaje;
     protected List<Pregunta> preguntasFiltradas;
+    private Map<String, Integer> bestScores;
+    private static String scoreFile = "src/main/resources/scores.json";
 
     public Juego() {
         this.puntaje = new Puntaje();
+        bestScores = new HashMap<>();
+        cargarBestScores();
+    }
+
+    private void cargarBestScores() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            File file = new File(scoreFile);
+            if (file.exists()) {
+                bestScores = mapper.readValue(file, new TypeReference<Map<String, Integer>>() {});
+            }
+        } catch (IOException e) {
+            System.out.println("No se pudieron cargar los mejores puntajes: " + e.getMessage());
+        }
+    }
+
+    private void guardarBestScores() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(scoreFile), bestScores);
+        } catch (IOException e) {
+            System.out.println("No se pudieron guardar los mejores puntajes: " + e.getMessage());
+        }
+    }
+
+    private void actualizarBestScore(String playerName, int score) {
+        int maxScore = Math.max(bestScores.getOrDefault(playerName, 0), score);
+        bestScores.put(playerName, maxScore);
+        guardarBestScores();
+    }
+
+    public void mostrarBestScores() {
+        System.out.println("=== Mejores puntajes ===");
+        if (bestScores.isEmpty()) {
+            System.out.println("No hay puntajes registrados.");
+        } else {
+            bestScores.forEach((name, score) -> System.out.println(name + ": " + score));
+        }
     }
 
     public void cargarPreguntas(String nombreArchivo) {
@@ -108,9 +147,9 @@ public class Juego {
         }
     }
 
+    Vidas v = new Vidas();
 
-
-    public void jugar() {
+    public void jugar(String playerName) {
         if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
             System.out.println("No hay preguntas cargadas.\n");
             return;
@@ -119,6 +158,12 @@ public class Juego {
         Scanner scanner = new Scanner(System.in);
 
         for (Pregunta pregunta : preguntasFiltradas) {
+            if (v.getVidas() <= 0) {
+                System.out.println("¡Se acabaron tus vidas! Fin del juego.\n");
+                /*v.setVidas(3);*/
+                break;
+            }
+
             System.out.println(pregunta.getEnunciado());
 
             switch (pregunta.getTipoPregunta()) {
@@ -128,7 +173,10 @@ public class Juego {
             }
         }
 
-        System.out.println("¡Has completado todas las preguntas de esta categoría y dificultad!");
+        if (v.getVidas() > 0) {
+            System.out.println("¡Has completado todas las preguntas de esta categoría y dificultad!");
+        }
+        actualizarBestScore(playerName, puntaje.getPuntos());
     }
 
     private void manejarPreguntaTexto(Scanner scanner, Pregunta pregunta) {
@@ -146,6 +194,7 @@ public class Juego {
             puntaje.sumarPuntos(10);
         } else {
             System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
+            v.perderVida();
         }
     }
 
@@ -168,6 +217,7 @@ public class Juego {
                     puntaje.sumarPuntos(10);
                 } else {
                     System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
+                    v.perderVida();
                 }
 
                 respuestaValida = true;
@@ -176,7 +226,6 @@ public class Juego {
             }
         }
     }
-
 
     public void guardarPuntaje(String archivo) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
@@ -190,9 +239,9 @@ public class Juego {
     public void cargarPuntaje(String archivo) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
             this.puntaje = (Puntaje) ois.readObject();
-            System.out.println("Puntaje cargado correctamente: \n" + puntaje);
+            System.out.println("Puntaje cargado correctamente.\n");
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error al cargar el puntaje: \n" + e.getMessage());
+            System.out.println("Error al cargar el puntaje: " + e.getMessage());
         }
     }
 }
