@@ -128,8 +128,14 @@ public class Juego {
     }
 
     private void manejarPreguntaTexto(Scanner scanner, Pregunta pregunta) {
-        System.out.print("Escribe tu respuesta: ");
-        String respuesta = scanner.nextLine();
+        String respuesta;
+        do {
+            System.out.print("Escribe tu respuesta: ");
+            respuesta = scanner.nextLine();
+            if (!ValidadorRespuestas.validarRespuestaTexto(respuesta)) {
+                System.out.println("Respuesta no válida. Por favor, ingresa un texto válido.");
+            }
+        } while (!ValidadorRespuestas.validarRespuestaTexto(respuesta));
 
         if (respuesta.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
             System.out.println("¡Correcto!\n");
@@ -148,7 +154,7 @@ public class Juego {
 
             System.out.print("Tu respuesta (número): ");
             int respuesta = scanner.nextInt();
-            scanner.nextLine();  // Limpiar el buffer
+            scanner.nextLine();
 
             if (respuesta >= 1 && respuesta <= pregunta.getOpciones().size()) {
                 String opcionSeleccionada = pregunta.getOpciones().get(respuesta - 1);
@@ -160,7 +166,7 @@ public class Juego {
                     System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
                 }
 
-                respuestaValida = true; // Salir del bucle si la respuesta es válida
+                respuestaValida = true;
             } else {
                 System.out.println("Opción no válida. Por favor, selecciona una opción dentro del rango.\n");
             }
