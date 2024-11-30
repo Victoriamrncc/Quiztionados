@@ -71,7 +71,7 @@ public class Juego {
         }
     }
 
-    public void seleccionarCategoria() {
+    public void seleccionarCategoria() { //menu
         Scanner scanner = new Scanner(System.in);
         String categoria = null;
 
@@ -110,7 +110,7 @@ public class Juego {
         System.out.println("Preguntas disponibles: " + preguntasFiltradas.size());
     }
 
-    public void seleccionarDificultad() {
+    public void seleccionarDificultad() { //menu
         Scanner scanner = new Scanner(System.in);
         String dificultad = null;
 
@@ -191,7 +191,7 @@ public class Juego {
 
         if (respuesta.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
             System.out.println("¡Correcto!\n");
-            puntaje.sumarPuntos(10);
+            puntaje.sumarPuntos(15);
         } else {
             System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
             v.perderVida();
@@ -201,6 +201,7 @@ public class Juego {
     private void manejarPreguntaOpciones(Scanner scanner, Pregunta pregunta) {
         boolean respuestaValida = false;
         while (!respuestaValida) {
+            // Mostrar las opciones
             for (int i = 0; i < pregunta.getOpciones().size(); i++) {
                 System.out.println((i + 1) + ". " + pregunta.getOpciones().get(i));
             }
@@ -209,12 +210,14 @@ public class Juego {
             int respuesta = scanner.nextInt();
             scanner.nextLine();
 
-            if (respuesta >= 1 && respuesta <= pregunta.getOpciones().size()) {
+            // Validar la respuesta seleccionada
+            if (ValidadorRespuestas.validarRespuestaSeleccion(respuesta, pregunta.getOpciones().size())) {
                 String opcionSeleccionada = pregunta.getOpciones().get(respuesta - 1);
+                boolean esCorrecta = opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta());
 
-                if (opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
+                if (esCorrecta) {
                     System.out.println("¡Correcto!\n");
-                    puntaje.sumarPuntos(10);
+                    puntaje.sumarPuntosPorTipo(pregunta.getTipoPregunta(), true); // Pasar tipo y resultado
                 } else {
                     System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
                     v.perderVida();
@@ -227,21 +230,15 @@ public class Juego {
         }
     }
 
+
     public void guardarPuntaje(String archivo) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
-            oos.writeObject(puntaje);
-            System.out.println("Puntaje guardado correctamente.\n");
-        } catch (IOException e) {
-            System.out.println("Error al guardar el puntaje: \n" + e.getMessage());
-        }
+        puntaje.guardarPuntaje(archivo);
     }
 
     public void cargarPuntaje(String archivo) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
-            this.puntaje = (Puntaje) ois.readObject();
-            System.out.println("Puntaje cargado correctamente.\n");
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error al cargar el puntaje: " + e.getMessage());
+        Puntaje cargado = Puntaje.cargarPuntaje(archivo);
+        if (cargado != null) {
+            this.puntaje = cargado;
         }
     }
 }
