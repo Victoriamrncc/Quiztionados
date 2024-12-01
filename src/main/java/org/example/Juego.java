@@ -29,6 +29,48 @@ public class Juego {
         }
     }
 
+    public void seleccionarCategoria(String categoria) {
+        if (categoria == null || categoria.isEmpty()) {
+            System.out.println("No se seleccionó ninguna categoría.");
+            return;
+        }
+
+        System.out.println("Categoría seleccionada: " + categoria);
+
+        preguntasFiltradas = preguntas.stream()
+                .filter(pregunta -> pregunta.getCategoria() != null &&
+                        pregunta.getCategoria().trim().equalsIgnoreCase(categoria))
+                .collect(Collectors.toList());
+
+        if (preguntasFiltradas.isEmpty()) {
+            System.out.println("No hay preguntas disponibles para esta categoría.\n");
+        } else {
+            System.out.println("Preguntas disponibles: " + preguntasFiltradas.size());
+        }
+    }
+
+    public void seleccionarDificultad(String dificultad) {
+        if (dificultad == null || dificultad.isEmpty()) {
+            System.out.println("No se seleccionó ninguna dificultad.");
+            return;
+        }
+
+        System.out.println("Dificultad seleccionada: " + dificultad);
+
+        preguntasFiltradas = preguntasFiltradas.stream()
+                .filter(pregunta -> pregunta.getDificultad() != null &&
+                        pregunta.getDificultad().equalsIgnoreCase(dificultad))
+                .collect(Collectors.toList());
+
+        if (preguntasFiltradas.isEmpty()) {
+            System.out.println("No hay preguntas disponibles para esta dificultad.\n");
+        } else {
+            System.out.println("Preguntas disponibles: " + preguntasFiltradas.size());
+        }
+    }
+
+
+
     public Juego() {
         this.puntaje = new Puntaje();
         this.scoreManager = new ScoreManager();

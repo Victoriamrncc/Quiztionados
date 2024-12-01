@@ -121,13 +121,14 @@ public class Ventana {
         if (option == JOptionPane.OK_OPTION) {
             String categoriaSeleccionada = (String) comboBox.getSelectedItem();
 
-            //
-            menu.seleccionarCategoria(categoriaSeleccionada);
+            // Ahora se llama a Juego para seleccionar la categoría
+            juego.seleccionarCategoria(categoriaSeleccionada);
 
             return categoriaSeleccionada; // Devuelve la categoría seleccionada
         }
         return null; // Usuario canceló.
     }
+
 
 
     private String seleccionarDificultad() {
@@ -140,14 +141,15 @@ public class Ventana {
         if (option == JOptionPane.OK_OPTION) {
             String dificultadSeleccionada = (String) comboBox.getSelectedItem();
 
-            // Pasar la dificultad seleccionada a la lógica del menú
-            menu.seleccionarDificultad(dificultadSeleccionada);
+            // Ahora se llama a Juego para seleccionar la dificultad
+            juego.seleccionarDificultad(dificultadSeleccionada);
 
             return dificultadSeleccionada; // Devuelve la dificultad seleccionada
         }
 
         return null; // Usuario canceló.
     }
+
 
     private void mostrarPuntajes() {
         Map<String, Integer> bestScores = scoreManager.getBestScores();

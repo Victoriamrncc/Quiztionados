@@ -61,46 +61,46 @@ public class Menu {
 //    }
 
 
-    public void seleccionarCategoria(String categoria) {
-        if (categoria == null || categoria.isEmpty()) {
-            System.out.println("No se seleccionó ninguna categoría.");
-            return;
-        }
-
-        System.out.println("Categoría seleccionada: " + categoria);
-
-        juego.preguntasFiltradas = juego.preguntas.stream()
-                .filter(pregunta -> pregunta.getCategoria() != null &&
-                        pregunta.getCategoria().trim().equalsIgnoreCase(categoria))
-                .collect(Collectors.toList());
-
-        if (juego.preguntasFiltradas.isEmpty()) {
-            System.out.println("No hay preguntas disponibles para esta categoría.\n");
-        } else {
-            System.out.println("Preguntas disponibles: " + juego.preguntasFiltradas.size());
-        }
-    }
-
-
-    public void seleccionarDificultad(String dificultad) {
-        if (dificultad == null || dificultad.isEmpty()) {
-            System.out.println("No se seleccionó ninguna dificultad.");
-            return;
-        }
-
-        System.out.println("Dificultad seleccionada: " + dificultad);
-
-        juego.preguntasFiltradas = juego.preguntasFiltradas.stream()
-                .filter(pregunta -> pregunta.getDificultad() != null &&
-                        pregunta.getDificultad().equalsIgnoreCase(dificultad))
-                .collect(Collectors.toList());
-
-        if (juego.preguntasFiltradas.isEmpty()) {
-            System.out.println("No hay preguntas disponibles para esta dificultad.\n");
-        } else {
-            System.out.println("Preguntas disponibles: " + juego.preguntasFiltradas.size());
-        }
-    }
+//    public void seleccionarCategoria(String categoria) {
+//        if (categoria == null || categoria.isEmpty()) {
+//            System.out.println("No se seleccionó ninguna categoría.");
+//            return;
+//        }
+//
+//        System.out.println("Categoría seleccionada: " + categoria);
+//
+//        juego.preguntasFiltradas = juego.preguntas.stream()
+//                .filter(pregunta -> pregunta.getCategoria() != null &&
+//                        pregunta.getCategoria().trim().equalsIgnoreCase(categoria))
+//                .collect(Collectors.toList());
+//
+//        if (juego.preguntasFiltradas.isEmpty()) {
+//            System.out.println("No hay preguntas disponibles para esta categoría.\n");
+//        } else {
+//            System.out.println("Preguntas disponibles: " + juego.preguntasFiltradas.size());
+//        }
+//    }
+//
+//
+//    public void seleccionarDificultad(String dificultad) {
+//        if (dificultad == null || dificultad.isEmpty()) {
+//            System.out.println("No se seleccionó ninguna dificultad.");
+//            return;
+//        }
+//
+//        System.out.println("Dificultad seleccionada: " + dificultad);
+//
+//        juego.preguntasFiltradas = juego.preguntasFiltradas.stream()
+//                .filter(pregunta -> pregunta.getDificultad() != null &&
+//                        pregunta.getDificultad().equalsIgnoreCase(dificultad))
+//                .collect(Collectors.toList());
+//
+//        if (juego.preguntasFiltradas.isEmpty()) {
+//            System.out.println("No hay preguntas disponibles para esta dificultad.\n");
+//        } else {
+//            System.out.println("Preguntas disponibles: " + juego.preguntasFiltradas.size());
+//        }
+//    }
 
 //    private void mostrarBestScores() {
 //        System.out.println("=== Mejores Puntajes ===");
