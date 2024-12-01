@@ -51,7 +51,7 @@ public class ControladorJuego {
         return juego.getPuntaje().getPuntos();
     }
 
-//    public int obtenerVidasRestantes() {
-//        return juego.getVidas().getVidas();
-//    }
+    public int obtenerVidasRestantes() {
+        return juego.getVidas().getVidas();
+    }
 }
