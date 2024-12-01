@@ -12,32 +12,32 @@ public class Menu {
         this.scanner = new Scanner(System.in);
     }
 
-    public void mostrarMenu() {
-        boolean continuar = true;
+//    public void mostrarMenu() {
+//        boolean continuar = true;
+//
+//        while (continuar) {
+//            System.out.println("=== MENÚ DEL JUEGO ===");
+//            System.out.println("1. Iniciar Juego");
+//            System.out.println("2. Ver Mejores Puntajes");
+//            System.out.println("3. Salir");
+//            System.out.print("Selecciona una opción: ");
+//
+//            int opcion = scanner.nextInt();
+//            scanner.nextLine();
+//
+//            switch (opcion) {
+//                case 1 -> iniciarJuego();
+//                case 2 -> mostrarBestScores();
+//                case 3 -> {
+//                    System.out.println("¡Gracias por jugar!");
+//                    continuar = false;
+//                }
+//                default -> System.out.println("Opción no válida.");
+//            }
+//        }
+//    }
 
-        while (continuar) {
-            System.out.println("=== MENÚ DEL JUEGO ===");
-            System.out.println("1. Iniciar Juego");
-            System.out.println("2. Ver Mejores Puntajes");
-            System.out.println("3. Salir");
-            System.out.print("Selecciona una opción: ");
-
-            int opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1 -> iniciarJuego();
-                case 2 -> mostrarBestScores();
-                case 3 -> {
-                    System.out.println("¡Gracias por jugar!");
-                    continuar = false;
-                }
-                default -> System.out.println("Opción no válida.");
-            }
-        }
-    }
-
-    private void iniciarJuego() {
+    public void iniciarJuego() {
         boolean volverAJugar;
         do {
             System.out.println("Por favor, ingresa tu nombre: ");
@@ -69,6 +69,8 @@ public class Menu {
                 case 1 -> "Historia";
                 case 2 -> "Ciencia";
                 case 3 -> "Geografía";
+                case 4 -> "Películas";
+                case 5 -> "Música";
                 default -> {
                     System.out.println("Opción no válida. Por favor, selecciona una opción válida.\n");
                     yield null;

@@ -65,7 +65,7 @@ public class Ventana {
     }
 
     private void iniciarJuego() {
-        menu.mostrarMenu(); // Inicia el flujo del juego desde el menú
+        menu.iniciarJuego(); // Inicia el flujo del juego desde el menú
     }
 
     private void mostrarPuntajes() {
