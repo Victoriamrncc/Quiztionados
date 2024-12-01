@@ -1,14 +1,12 @@
 package IGU;
 
-import org.example.Juego;
-import org.example.Menu;
-import org.example.ScoreManager;
-
+import org.example.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
+import org.example.Menu;
 
 public class Ventana {
     private JFrame frame;
@@ -70,23 +68,21 @@ public class Ventana {
 
     private void iniciarJuego() {
         String playerName = pedirNombreJugador();
-        if (playerName == null) return; // Si el usuario cancela.
+        if (playerName == null) return;
 
-        String categoria = seleccionarCategoria(); // Usa la lógica de Ventana + Menu
-        if (categoria == null) return; // Si el usuario cancela.
+        String categoria = seleccionarCategoria();
+        if (categoria == null) return;
 
-        String dificultad = seleccionarDificultad(); // Reutiliza el flujo actual
-        if (dificultad == null) return; // Si el usuario cancela.
+        String dificultad = seleccionarDificultad();
+        if (dificultad == null) return;
 
-        System.out.println("Iniciando el juego con:");
-        System.out.println("Jugador: " + playerName);
-        System.out.println("Categoría: " + categoria);
-        System.out.println("Dificultad: " + dificultad);
+        // Configura el juego
+        menu.seleccionarCategoria(categoria);
+        menu.seleccionarDificultad(dificultad);
 
-        juego.jugar(playerName); // Llama al flujo del juego con el jugador configurado
-    } //menu
-
-
+        // Muestra la primera pregunta
+        siguientePregunta();
+    }
 
     private String pedirNombreJugador() {
         JPanel panel = new JPanel(new GridLayout(2, 1));
@@ -120,15 +116,11 @@ public class Ventana {
 
         if (option == JOptionPane.OK_OPTION) {
             String categoriaSeleccionada = (String) comboBox.getSelectedItem();
-
-            //
             menu.seleccionarCategoria(categoriaSeleccionada);
-
-            return categoriaSeleccionada; // Devuelve la categoría seleccionada
+            return categoriaSeleccionada;
         }
         return null; // Usuario canceló.
     }
-
 
     private String seleccionarDificultad() {
         String[] dificultades = {"Fácil", "Intermedio", "Difícil"};
@@ -139,14 +131,10 @@ public class Ventana {
 
         if (option == JOptionPane.OK_OPTION) {
             String dificultadSeleccionada = (String) comboBox.getSelectedItem();
-
-            // Pasar la dificultad seleccionada a la lógica del menú
             menu.seleccionarDificultad(dificultadSeleccionada);
-
-            return dificultadSeleccionada; // Devuelve la dificultad seleccionada
+            return dificultadSeleccionada;
         }
-
-        return null; // Usuario canceló.
+        return null;
     }
 
     private void mostrarPuntajes() {
@@ -161,7 +149,7 @@ public class Ventana {
             JOptionPane.showMessageDialog(frame, sb.toString(),
                     "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
         }
-    } //llama bien :)
+    }
 
     private void salir() {
         int confirm = JOptionPane.showConfirmDialog(frame, "¿Estás seguro de que quieres salir?",
@@ -169,5 +157,78 @@ public class Ventana {
         if (confirm == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    } // this is fine
+    }
+
+    private void mostrarMenuPrincipal() {
+        frame.getContentPane().removeAll();
+        frame.setLayout(new GridLayout(3, 1));
+        frame.add(button1);
+        frame.add(button2);
+        frame.add(button3);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    private void siguientePregunta() {
+        if (juego.getVidas().getVidas() <= 0) {
+            JOptionPane.showMessageDialog(frame, "¡Te has quedado sin vidas! Fin del juego.");
+            mostrarMenuPrincipal();
+        } else if (juego.getPreguntasFiltradas().isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "¡Has respondido todas las preguntas! Puntaje final: " + juego.getPuntaje().getPuntos());
+            mostrarMenuPrincipal();
+        } else {
+            Pregunta siguiente = juego.getPreguntasFiltradas().remove(0);
+            mostrarPregunta(siguiente);
+        }
+    }
+
+    private void mostrarPregunta(Pregunta pregunta) {
+        JPanel panelPregunta = new JPanel(new BorderLayout());
+
+        JLabel enunciado = new JLabel("<html>" + pregunta.getEnunciado() + "</html>");
+        enunciado.setHorizontalAlignment(SwingConstants.CENTER);
+        panelPregunta.add(enunciado, BorderLayout.NORTH);
+
+        JPanel opcionesPanel = new JPanel();
+        ButtonGroup grupoOpciones = new ButtonGroup();
+
+        for (String opcion : pregunta.getOpciones()) {
+            JRadioButton botonOpcion = new JRadioButton(opcion);
+            botonOpcion.setActionCommand(opcion); // Asigna la opción como identificador único
+            grupoOpciones.add(botonOpcion);
+            opcionesPanel.add(botonOpcion);
+        }
+        panelPregunta.add(opcionesPanel, BorderLayout.CENTER);
+
+        JButton botonResponder = new JButton("Responder");
+        botonResponder.addActionListener(e -> {
+            // Verificar selección
+            if (grupoOpciones.getSelection() == null) {
+                JOptionPane.showMessageDialog(frame, "Debes seleccionar una respuesta.");
+                return; // No avanza hasta que se seleccione algo
+            }
+
+            // Obtener la opción seleccionada
+            String seleccion = grupoOpciones.getSelection().getActionCommand();
+
+            if (seleccion.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
+                JOptionPane.showMessageDialog(frame, "¡Correcto!");
+                juego.getPuntaje().sumarPuntosPorTipo(pregunta.getTipoPregunta(), true);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta());
+                juego.getVidas().perderVida();
+            }
+
+            // Avanzar a la siguiente pregunta
+            siguientePregunta();
+        });
+
+        panelPregunta.add(botonResponder, BorderLayout.SOUTH);
+
+        frame.getContentPane().removeAll();
+        frame.add(panelPregunta);
+        frame.revalidate();
+        frame.repaint();
+    }
+
 }

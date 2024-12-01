@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 
 public class Juego {
     protected List<Pregunta> preguntas;
-    protected Puntaje puntaje;
+    public Puntaje puntaje;
     protected List<Pregunta> preguntasFiltradas;
     private ScoreManager scoreManager;
-    private Vidas v = new Vidas();
+    public Vidas v = new Vidas();
 
     public void cargarPreguntas(String nombreArchivo) {
         try {
@@ -34,7 +34,13 @@ public class Juego {
         this.scoreManager = new ScoreManager();
     }
 
+    public Puntaje getPuntaje() {
+        return puntaje;
+    }
 
+    public Vidas getVidas() {
+        return v;
+    }
 
     public void jugar(String playerName) {
         if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
@@ -114,6 +120,12 @@ public class Juego {
                 System.out.println("Opción no válida. Por favor, selecciona una opción dentro del rango.\n");
             }
         }
+
+
+    }
+
+    public List<Pregunta> getPreguntasFiltradas() {
+        return preguntasFiltradas;
     }
 
 //    public void guardarPuntaje(String archivo) {
