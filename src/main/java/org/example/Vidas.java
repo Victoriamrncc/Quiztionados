@@ -1,6 +1,6 @@
 package org.example;
 
-public class Vidas{
+public class Vidas {
     private int vidas;
 
     public Vidas() {
@@ -18,10 +18,16 @@ public class Vidas{
     public void perderVida() {
         setVidas(getVidas() - 1);
 
-        if (getVidas() > 0) {
-            System.out.println("Te quedan " + getVidas() + " vidas.\n");
+        // Notificar cambios sin imprimir directamente
+        if (getVidas() <= 0) {
+            notificarCambio("¡Has perdido todas tus vidas!");
         } else {
-            System.out.println("¡Has perdido todas tus vidas!\n");
+            notificarCambio("Te quedan " + getVidas() + " vidas.");
         }
+    }
+
+    private void notificarCambio(String mensaje) {
+        // Aquí se podría integrar con un sistema de listeners o eventos para la GUI
+        System.out.println(mensaje); // Temporal, sustituir por integración con la GUI
     }
 }

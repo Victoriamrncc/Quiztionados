@@ -5,6 +5,7 @@ import java.io.*;
 public class Puntaje implements Serializable {
     private int puntos;
 
+    // Método único para obtener el puntaje
     public int getPuntos() {
         return puntos;
     }
@@ -24,7 +25,6 @@ public class Puntaje implements Serializable {
 
         this.puntos += puntosAAsignar;
     }
-
 
     public void guardarPuntaje(String archivo) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {

@@ -13,28 +13,9 @@ public class Menu {
     }
 
     public void mostrarMenu() {
-        boolean continuar = true;
-
-        while (continuar) {
-            System.out.println("=== MENÚ DEL JUEGO ===");
-            System.out.println("1. Iniciar Juego");
-            System.out.println("2. Ver Mejores Puntajes");
-            System.out.println("3. Salir");
-            System.out.print("Selecciona una opción: ");
-
-            int opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1 -> iniciarJuego();
-                case 2 -> mostrarBestScores();
-                case 3 -> {
-                    System.out.println("¡Gracias por jugar!");
-                    continuar = false;
-                }
-                default -> System.out.println("Opción no válida.");
-            }
-        }
+        // Este método ahora solo es una referencia.
+        // La lógica del menú está en MenuScreen de la GUI.
+        System.out.println("El menú ahora está gestionado por la interfaz gráfica.");
     }
 
     private void iniciarJuego() {

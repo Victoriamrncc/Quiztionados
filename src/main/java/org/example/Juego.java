@@ -11,11 +11,15 @@ public class Juego {
     protected Puntaje puntaje;
     protected List<Pregunta> preguntasFiltradas;
     private ScoreManager scoreManager;
-    private Vidas v = new Vidas();
+    public Vidas v = new Vidas();
 
     public Juego() {
         this.puntaje = new Puntaje();
         this.scoreManager = new ScoreManager();
+    }
+
+    public Map<String, Integer> getBestScores() {
+        return scoreManager.getBestScores();
     }
 
     public void mostrarBestScores() {
@@ -126,5 +130,14 @@ public class Juego {
             this.puntaje = puntajeCargado;
         }
     }
+
+    public List<Pregunta> getPreguntasFiltradas() {
+        return preguntasFiltradas;
+    }
+
+    public Vidas getVidas() {
+        return v;
+    }
+
 }
 
