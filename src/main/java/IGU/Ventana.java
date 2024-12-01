@@ -68,10 +68,10 @@ public class Ventana {
         String playerName = pedirNombreJugador();
         if (playerName == null) return; // Si el usuario cancela.
 
-        String categoria = seleccionarCategoria();
+        String categoria = seleccionarCategoria(); // Usa la lógica de Ventana + Menu
         if (categoria == null) return; // Si el usuario cancela.
 
-        String dificultad = seleccionarDificultad();
+        String dificultad = seleccionarDificultad(); // Reutiliza el flujo actual
         if (dificultad == null) return; // Si el usuario cancela.
 
         System.out.println("Iniciando el juego con:");
@@ -79,8 +79,10 @@ public class Ventana {
         System.out.println("Categoría: " + categoria);
         System.out.println("Dificultad: " + dificultad);
 
-        juego.jugar(playerName); // Llama al flujo del juego.
+        juego.jugar(playerName); // Llama al flujo del juego con el jugador configurado
     }
+
+
 
     private String pedirNombreJugador() {
         JPanel panel = new JPanel(new GridLayout(2, 1));
@@ -113,10 +115,16 @@ public class Ventana {
                 frame, comboBox, "Seleccione una categoría", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
-            return (String) comboBox.getSelectedItem();
+            String categoriaSeleccionada = (String) comboBox.getSelectedItem();
+
+            //
+            menu.seleccionarCategoria(categoriaSeleccionada);
+
+            return categoriaSeleccionada; // Devuelve la categoría seleccionada
         }
         return null; // Usuario canceló.
     }
+
 
     private String seleccionarDificultad() {
         String[] dificultades = {"Fácil", "Intermedio", "Difícil"};

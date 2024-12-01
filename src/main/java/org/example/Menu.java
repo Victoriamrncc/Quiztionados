@@ -37,59 +37,50 @@ public class Menu {
 //        }
 //    }
 
-    public void iniciarJuego() {
-        boolean volverAJugar;
-        do {
-            System.out.println("Por favor, ingresa tu nombre: ");
-            String playerName = scanner.nextLine(); // Obtener el nombre del jugador
+//    public void iniciarJuego() {
+//        boolean volverAJugar;
+//        do {
+//            System.out.println("Por favor, ingresa tu nombre: ");
+//            String playerName = scanner.nextLine(); // Obtener el nombre del jugador
+//
+//            // Pedir al usuario que seleccione una categoría
+//            System.out.println("Selecciona una categoría (ejemplo: Historia, Ciencia, Geografía): ");
+//            String categoria = scanner.nextLine().trim();
+//
+//            // Pasar la categoría seleccionada al método
+//            seleccionarCategoria(categoria);
+//
+//            // Continuar con la selección de dificultad
+//            seleccionarDificultad();
+//
+//            System.out.println("Iniciando el juego con preguntas seleccionadas...");
+//            juego.jugar(playerName); // Pasar el nombre del jugador a este método
+//
+//            volverAJugar = confirmar("¿Deseas volver a jugar? (si/no): ");
+//        } while (volverAJugar);
+//    }
 
-            seleccionarCategoria();
-            seleccionarDificultad();
 
-            System.out.println("Iniciando el juego con preguntas seleccionadas...");
-            juego.jugar(playerName); // Pasar el nombre del jugador a este método
-
-            volverAJugar = confirmar("¿Deseas volver a jugar? (si/no): ");
-        } while (volverAJugar);
-    }
-
-    private void seleccionarCategoria() {
-        String categoria = null;
-
-        while (categoria == null) {
-            System.out.println("Selecciona la categoría del juego:");
-            System.out.println("1. Historia");
-            System.out.println("2. Ciencia");
-            System.out.println("3. Geografía");
-            System.out.print("Selecciona una opción: ");
-            int categoriaSeleccionada = scanner.nextInt();
-            scanner.nextLine();
-
-            categoria = switch (categoriaSeleccionada) {
-                case 1 -> "Historia";
-                case 2 -> "Ciencia";
-                case 3 -> "Geografía";
-                default -> {
-                    System.out.println("Opción no válida. Por favor, selecciona una opción válida.\n");
-                    yield null;
-                }
-            };
+    public void seleccionarCategoria(String categoria) {
+        if (categoria == null || categoria.isEmpty()) {
+            System.out.println("No se seleccionó ninguna categoría.");
+            return;
         }
 
         System.out.println("Categoría seleccionada: " + categoria);
 
-        String finalCategoria = categoria;
         juego.preguntasFiltradas = juego.preguntas.stream()
                 .filter(pregunta -> pregunta.getCategoria() != null &&
-                        pregunta.getCategoria().trim().equalsIgnoreCase(finalCategoria))
+                        pregunta.getCategoria().trim().equalsIgnoreCase(categoria))
                 .collect(Collectors.toList());
 
         if (juego.preguntasFiltradas.isEmpty()) {
             System.out.println("No hay preguntas disponibles para esta categoría.\n");
+        } else {
+            System.out.println("Preguntas disponibles: " + juego.preguntasFiltradas.size());
         }
-
-        System.out.println("Preguntas disponibles: " + juego.preguntasFiltradas.size());
     }
+
 
     private void seleccionarDificultad() {
         String dificultad = null;
