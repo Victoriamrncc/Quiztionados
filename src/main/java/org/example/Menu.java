@@ -82,39 +82,23 @@ public class Menu {
     }
 
 
-    private void seleccionarDificultad() {
-        String dificultad = null;
-
-        while (dificultad == null) {
-            System.out.println("Selecciona la dificultad del juego:");
-            System.out.println("1. Fácil");
-            System.out.println("2. Intermedio");
-            System.out.println("3. Difícil");
-            System.out.print("Selecciona una opción: ");
-            int dificultadSeleccionada = scanner.nextInt();
-            scanner.nextLine();
-
-            dificultad = switch (dificultadSeleccionada) {
-                case 1 -> "fácil";
-                case 2 -> "intermedio";
-                case 3 -> "difícil";
-                default -> {
-                    System.out.println("Opción no válida. Por favor, selecciona una opción válida.\n");
-                    yield null;
-                }
-            };
+    public void seleccionarDificultad(String dificultad) {
+        if (dificultad == null || dificultad.isEmpty()) {
+            System.out.println("No se seleccionó ninguna dificultad.");
+            return;
         }
 
-        String finalDificultad = dificultad;
+        System.out.println("Dificultad seleccionada: " + dificultad);
 
         juego.preguntasFiltradas = juego.preguntasFiltradas.stream()
-                .filter(pregunta -> pregunta.getDificultad() != null && pregunta.getDificultad().equalsIgnoreCase(finalDificultad))
+                .filter(pregunta -> pregunta.getDificultad() != null &&
+                        pregunta.getDificultad().equalsIgnoreCase(dificultad))
                 .collect(Collectors.toList());
 
         if (juego.preguntasFiltradas.isEmpty()) {
             System.out.println("No hay preguntas disponibles para esta dificultad.\n");
         } else {
-            System.out.println("Dificultad seleccionada: " + dificultad);
+            System.out.println("Preguntas disponibles: " + juego.preguntasFiltradas.size());
         }
     }
 

@@ -134,8 +134,14 @@ public class Ventana {
                 frame, comboBox, "Seleccione una dificultad", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
-            return (String) comboBox.getSelectedItem();
+            String dificultadSeleccionada = (String) comboBox.getSelectedItem();
+
+            // Pasar la dificultad seleccionada a la lógica del menú
+            menu.seleccionarDificultad(dificultadSeleccionada);
+
+            return dificultadSeleccionada; // Devuelve la dificultad seleccionada
         }
+
         return null; // Usuario canceló.
     }
 
