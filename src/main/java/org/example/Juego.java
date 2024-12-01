@@ -22,6 +22,10 @@ public class Juego {
         scoreManager.mostrarBestScores();
     }
 
+    public ScoreManager getScoreManager() {
+        return scoreManager;
+    }
+
     public void jugar(String playerName) {
         if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
             System.out.println("No hay preguntas cargadas.\n");

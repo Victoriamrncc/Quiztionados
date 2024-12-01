@@ -1,17 +1,9 @@
 package org.example;
 
+import IGU.Ventana;
+
 public class Main {
     public static void main(String[] args) {
-        Juego juego = new Juego();
-
-        juego.cargarPreguntas("preguntas.json");
-
-        Menu menu = new Menu(juego);
-
-        menu.mostrarMenu();
-
-        juego.guardarPuntaje("puntaje.ser");
-
-        juego.cargarPuntaje("puntaje.ser");
+        new Ventana(); // Crea la ventana principal
     }
 }
