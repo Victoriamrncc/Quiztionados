@@ -10,49 +10,45 @@ public class Juego {
     protected List<Pregunta> preguntas;
     protected Puntaje puntaje;
     protected List<Pregunta> preguntasFiltradas;
-    private Map<String, Integer> bestScores;
-    private static String scoreFile = "src/main/resources/scores.json";
+    private ScoreManager scoreManager;
+    private Vidas v = new Vidas();
 
     public Juego() {
         this.puntaje = new Puntaje();
-        bestScores = new HashMap<>();
-        cargarBestScores();
-    }
-
-    private void cargarBestScores() {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            File file = new File(scoreFile);
-            if (file.exists()) {
-                bestScores = mapper.readValue(file, new TypeReference<Map<String, Integer>>() {});
-            }
-        } catch (IOException e) {
-            System.out.println("No se pudieron cargar los mejores puntajes: " + e.getMessage());
-        }
-    }
-
-    private void guardarBestScores() {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(scoreFile), bestScores);
-        } catch (IOException e) {
-            System.out.println("No se pudieron guardar los mejores puntajes: " + e.getMessage());
-        }
-    }
-
-    private void actualizarBestScore(String playerName, int score) {
-        int maxScore = Math.max(bestScores.getOrDefault(playerName, 0), score);
-        bestScores.put(playerName, maxScore);
-        guardarBestScores();
+        this.scoreManager = new ScoreManager();
     }
 
     public void mostrarBestScores() {
-        System.out.println("=== Mejores puntajes ===");
-        if (bestScores.isEmpty()) {
-            System.out.println("No hay puntajes registrados.");
-        } else {
-            bestScores.forEach((name, score) -> System.out.println(name + ": " + score));
+        scoreManager.mostrarBestScores();
+    }
+
+    public void jugar(String playerName) {
+        if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
+            System.out.println("No hay preguntas cargadas.\n");
+            return;
         }
+
+        Scanner scanner = new Scanner(System.in);
+
+        for (Pregunta pregunta : preguntasFiltradas) {
+            if (v.getVidas() <= 0) {
+                System.out.println("¡Se acabaron tus vidas! Fin del juego.\n");
+                break;
+            }
+
+            System.out.println(pregunta.getEnunciado());
+
+            switch (pregunta.getTipoPregunta()) {
+                case "input" -> manejarPreguntaTexto(scanner, pregunta);
+                case "selección múltiple", "verdadero/falso" -> manejarPreguntaOpciones(scanner, pregunta);
+                default -> System.out.println("Tipo de pregunta desconocido.\n");
+            }
+        }
+
+        if (v.getVidas() > 0) {
+            System.out.println("¡Has completado todas las preguntas de esta categoría y dificultad!");
+        }
+        scoreManager.actualizarBestScore(playerName, puntaje.getPuntos());
     }
 
     public void cargarPreguntas(String nombreArchivo) {
@@ -71,7 +67,7 @@ public class Juego {
         }
     }
 
-    public void seleccionarCategoria() { //menu
+    public void seleccionarCategoria() {
         Scanner scanner = new Scanner(System.in);
         String categoria = null;
 
@@ -110,7 +106,7 @@ public class Juego {
         System.out.println("Preguntas disponibles: " + preguntasFiltradas.size());
     }
 
-    public void seleccionarDificultad() { //menu
+    public void seleccionarDificultad() {
         Scanner scanner = new Scanner(System.in);
         String dificultad = null;
 
@@ -147,38 +143,6 @@ public class Juego {
         }
     }
 
-    Vidas v = new Vidas();
-
-    public void jugar(String playerName) {
-        if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
-            System.out.println("No hay preguntas cargadas.\n");
-            return;
-        }
-
-        Scanner scanner = new Scanner(System.in);
-
-        for (Pregunta pregunta : preguntasFiltradas) {
-            if (v.getVidas() <= 0) {
-                System.out.println("¡Se acabaron tus vidas! Fin del juego.\n");
-                /*v.setVidas(3);*/
-                break;
-            }
-
-            System.out.println(pregunta.getEnunciado());
-
-            switch (pregunta.getTipoPregunta()) {
-                case "input" -> manejarPreguntaTexto(scanner, pregunta);
-                case "selección múltiple", "verdadero/falso" -> manejarPreguntaOpciones(scanner, pregunta);
-                default -> System.out.println("Tipo de pregunta desconocido.\n");
-            }
-        }
-
-        if (v.getVidas() > 0) {
-            System.out.println("¡Has completado todas las preguntas de esta categoría y dificultad!");
-        }
-        actualizarBestScore(playerName, puntaje.getPuntos());
-    }
-
     private void manejarPreguntaTexto(Scanner scanner, Pregunta pregunta) {
         String respuesta;
         do {
@@ -201,7 +165,6 @@ public class Juego {
     private void manejarPreguntaOpciones(Scanner scanner, Pregunta pregunta) {
         boolean respuestaValida = false;
         while (!respuestaValida) {
-            // Mostrar las opciones
             for (int i = 0; i < pregunta.getOpciones().size(); i++) {
                 System.out.println((i + 1) + ". " + pregunta.getOpciones().get(i));
             }
@@ -210,14 +173,13 @@ public class Juego {
             int respuesta = scanner.nextInt();
             scanner.nextLine();
 
-            // Validar la respuesta seleccionada
             if (ValidadorRespuestas.validarRespuestaSeleccion(respuesta, pregunta.getOpciones().size())) {
                 String opcionSeleccionada = pregunta.getOpciones().get(respuesta - 1);
                 boolean esCorrecta = opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta());
 
                 if (esCorrecta) {
                     System.out.println("¡Correcto!\n");
-                    puntaje.sumarPuntosPorTipo(pregunta.getTipoPregunta(), true); // Pasar tipo y resultado
+                    puntaje.sumarPuntosPorTipo(pregunta.getTipoPregunta(), true);
                 } else {
                     System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
                     v.perderVida();
@@ -230,15 +192,15 @@ public class Juego {
         }
     }
 
-
     public void guardarPuntaje(String archivo) {
         puntaje.guardarPuntaje(archivo);
     }
 
     public void cargarPuntaje(String archivo) {
-        Puntaje cargado = Puntaje.cargarPuntaje(archivo);
-        if (cargado != null) {
-            this.puntaje = cargado;
+        Puntaje puntajeCargado = Puntaje.cargarPuntaje(archivo);
+        if (puntajeCargado != null) {
+            this.puntaje = puntajeCargado;
         }
     }
 }
+
