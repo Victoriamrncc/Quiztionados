@@ -5,125 +5,106 @@ import org.example.Pregunta;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Ventana {
     private JFrame frame;
-    private JButton button1; // Iniciar Juego
-    private JButton button2; // Mostrar Puntajes
-    private JButton button3; // Salir
+    private JButton button1, button2, button3; // Botones
     private Juego juego;
 
     public Ventana() {
-        // Inicializamos el frame
+        // Inicializar frame
         frame = new JFrame("Trivia Game");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(3, 1)); // Una columna, tres filas
 
-        // Inicializamos el juego
+        // Inicializar juego
         juego = new Juego();
         juego.cargarPreguntas("preguntas.json");
 
-        // Inicializamos los botones
-        button1 = new JButton("Iniciar Juego");
-        button2 = new JButton("Mostrar Puntajes");
-        button3 = new JButton("Salir");
+        // Inicializar botones con acciones
+        button1 = crearBoton("Iniciar Juego", e -> iniciarJuego());
+        button2 = crearBoton("Mostrar Puntajes", e -> mostrarPuntajes());
+        button3 = crearBoton("Salir", e -> salir());
 
-        // Añadimos acciones a los botones
-        button1.addActionListener(e -> iniciarJuego());
-        button2.addActionListener(e -> mostrarPuntajes());
-        button3.addActionListener(e -> salir());
-
-        // Añadimos los botones al frame
+        // Añadir botones al frame
         frame.add(button1);
         frame.add(button2);
         frame.add(button3);
 
-        // Hacemos visible el frame
+        // Mostrar frame
         frame.setVisible(true);
     }
 
+    // Método para crear botones con menos redundancia
+    private JButton crearBoton(String texto, java.awt.event.ActionListener accion) {
+        JButton boton = new JButton(texto);
+        boton.addActionListener(accion);
+        return boton;
+    }
+
     private void iniciarJuego() {
-        String playerName = pedirNombreJugador();
+        String playerName = pedirEntrada("Ingrese su nombre:", "Nombre del jugador");
         if (playerName == null) return;
 
-        String categoria = seleccionarCategoria();
+        String categoria = seleccionarOpcion(new String[]{"Historia", "Ciencia", "Geografía", "Películas", "Música"}, "Seleccione una categoría");
         if (categoria == null) return;
 
-        String dificultad = seleccionarDificultad();
+        String dificultad = seleccionarOpcion(new String[]{"Fácil", "Intermedio", "Difícil"}, "Seleccione una dificultad");
         if (dificultad == null) return;
 
-        // Configura el juego
+        // Configurar juego
         juego.seleccionarCategoria(categoria);
         juego.seleccionarDificultad(dificultad);
 
-        // Muestra la primera pregunta
+        // Mostrar la primera pregunta
         siguientePregunta(playerName);
     }
 
-    private String pedirNombreJugador() {
+    // Método genérico para solicitar entradas de texto
+    private String pedirEntrada(String mensaje, String titulo) {
         JPanel panel = new JPanel(new GridLayout(2, 1));
-        JLabel label = new JLabel("Ingrese su nombre:");
+        JLabel label = new JLabel(mensaje);
         JTextField textField = new JTextField();
 
         panel.add(label);
         panel.add(textField);
 
         int option = JOptionPane.showConfirmDialog(
-                frame, panel, "Nombre del jugador", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                frame, panel, titulo, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (option == JOptionPane.OK_OPTION) {
-            String playerName = textField.getText().trim();
-            if (!playerName.isEmpty()) {
-                return playerName;
+            String input = textField.getText().trim();
+            if (!input.isEmpty()) {
+                return input;
             } else {
-                JOptionPane.showMessageDialog(frame, "El nombre no puede estar vacío.");
-                return pedirNombreJugador(); // Reintenta si está vacío.
+                JOptionPane.showMessageDialog(frame, "El campo no puede estar vacío.");
+                return pedirEntrada(mensaje, titulo); // Reintenta si está vacío.
             }
         }
         return null; // Usuario canceló.
     }
 
-    private String seleccionarCategoria() {
-        String[] categorias = {"Historia", "Ciencia", "Geografía", "Películas", "Música"};
-        JComboBox<String> comboBox = new JComboBox<>(categorias);
+    // Método genérico para seleccionar opciones
+    private String seleccionarOpcion(String[] opciones, String titulo) {
+        JComboBox<String> comboBox = new JComboBox<>(opciones);
 
         int option = JOptionPane.showConfirmDialog(
-                frame, comboBox, "Seleccione una categoría", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                frame, comboBox, titulo, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        if (option == JOptionPane.OK_OPTION) {
-            return (String) comboBox.getSelectedItem();
-        }
-        return null; // Usuario canceló.
-    }
-
-    private String seleccionarDificultad() {
-        String[] dificultades = {"Fácil", "Intermedio", "Difícil"};
-        JComboBox<String> comboBox = new JComboBox<>(dificultades);
-
-        int option = JOptionPane.showConfirmDialog(
-                frame, comboBox, "Seleccione una dificultad", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-        if (option == JOptionPane.OK_OPTION) {
-            return (String) comboBox.getSelectedItem();
-        }
-        return null;
+        return option == JOptionPane.OK_OPTION ? (String) comboBox.getSelectedItem() : null;
     }
 
     private void mostrarPuntajes() {
         var bestScores = juego.obtenerMejoresPuntajes();
 
-        if (bestScores.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "No hay puntajes registrados.",
-                    "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            StringBuilder sb = new StringBuilder("=== Mejores Puntajes ===\n");
-            bestScores.forEach((name, score) -> sb.append(name).append(": ").append(score).append("\n"));
-            JOptionPane.showMessageDialog(frame, sb.toString(),
-                    "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
-        }
+        String mensaje = bestScores.isEmpty()
+                ? "No hay puntajes registrados."
+                : "=== Mejores Puntajes ===\n" + bestScores.entrySet().stream()
+                .map(entry -> entry.getKey() + ": " + entry.getValue())
+                .reduce("", (a, b) -> a + b + "\n");
+
+        JOptionPane.showMessageDialog(frame, mensaje, "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void salir() {
@@ -165,8 +146,7 @@ public class Ventana {
         }
         panelPregunta.add(opcionesPanel, BorderLayout.CENTER);
 
-        JButton botonResponder = new JButton("Responder");
-        botonResponder.addActionListener(e -> {
+        JButton botonResponder = crearBoton("Responder", e -> {
             if (grupoOpciones.getSelection() == null) {
                 JOptionPane.showMessageDialog(frame, "Debes seleccionar una respuesta.");
                 return;
@@ -175,12 +155,7 @@ public class Ventana {
             String seleccion = grupoOpciones.getSelection().getActionCommand();
             boolean esCorrecta = juego.validarRespuesta(pregunta, seleccion);
 
-            if (esCorrecta) {
-                JOptionPane.showMessageDialog(frame, "¡Correcto!");
-            } else {
-                JOptionPane.showMessageDialog(frame, "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta());
-            }
-
+            JOptionPane.showMessageDialog(frame, esCorrecta ? "¡Correcto!" : "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta());
             siguientePregunta(playerName);
         });
 
@@ -202,5 +177,3 @@ public class Ventana {
         frame.repaint();
     }
 }
-
-
