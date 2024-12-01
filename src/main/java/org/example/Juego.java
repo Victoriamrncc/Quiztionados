@@ -18,6 +18,10 @@ public class Juego {
         this.scoreManager = new ScoreManager();
     }
 
+    public void setPreguntasFiltradas(List<Pregunta> preguntasFiltradas) {
+        this.preguntasFiltradas = preguntasFiltradas;
+    }
+
     public void mostrarBestScores() {
         scoreManager.mostrarBestScores();
     }

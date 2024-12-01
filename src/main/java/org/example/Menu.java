@@ -69,8 +69,6 @@ public class Menu {
                 case 1 -> "Historia";
                 case 2 -> "Ciencia";
                 case 3 -> "Geografía";
-                case 4 -> "Películas";
-                case 5 -> "Música";
                 default -> {
                     System.out.println("Opción no válida. Por favor, selecciona una opción válida.\n");
                     yield null;

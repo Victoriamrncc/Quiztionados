@@ -65,7 +65,70 @@ public class Ventana {
     }
 
     private void iniciarJuego() {
-        menu.iniciarJuego(); // Inicia el flujo del juego desde el menú
+        String playerName = pedirNombreJugador();
+        if (playerName == null) return; // Si el usuario cancela.
+
+        String categoria = seleccionarCategoria();
+        if (categoria == null) return; // Si el usuario cancela.
+
+        String dificultad = seleccionarDificultad();
+        if (dificultad == null) return; // Si el usuario cancela.
+
+        System.out.println("Iniciando el juego con:");
+        System.out.println("Jugador: " + playerName);
+        System.out.println("Categoría: " + categoria);
+        System.out.println("Dificultad: " + dificultad);
+
+        juego.jugar(playerName); // Llama al flujo del juego.
+    }
+
+    private String pedirNombreJugador() {
+        JPanel panel = new JPanel(new GridLayout(2, 1));
+        JLabel label = new JLabel("Ingrese su nombre:");
+        JTextField textField = new JTextField();
+
+        panel.add(label);
+        panel.add(textField);
+
+        int option = JOptionPane.showConfirmDialog(
+                frame, panel, "Nombre del jugador", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            String playerName = textField.getText().trim();
+            if (!playerName.isEmpty()) {
+                return playerName;
+            } else {
+                JOptionPane.showMessageDialog(frame, "El nombre no puede estar vacío.");
+                return pedirNombreJugador(); // Reintenta si está vacío.
+            }
+        }
+        return null; // Usuario canceló.
+    }
+
+    private String seleccionarCategoria() {
+        String[] categorias = {"Historia", "Ciencia", "Geografía", "Películas", "Música"};
+        JComboBox<String> comboBox = new JComboBox<>(categorias);
+
+        int option = JOptionPane.showConfirmDialog(
+                frame, comboBox, "Seleccione una categoría", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            return (String) comboBox.getSelectedItem();
+        }
+        return null; // Usuario canceló.
+    }
+
+    private String seleccionarDificultad() {
+        String[] dificultades = {"Fácil", "Intermedio", "Difícil"};
+        JComboBox<String> comboBox = new JComboBox<>(dificultades);
+
+        int option = JOptionPane.showConfirmDialog(
+                frame, comboBox, "Seleccione una dificultad", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            return (String) comboBox.getSelectedItem();
+        }
+        return null; // Usuario canceló.
     }
 
     private void mostrarPuntajes() {
