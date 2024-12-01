@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.List;
-
 public class ValidadorRespuestas {
     public static boolean validarRespuestaSeleccion(int respuesta, int numeroOpciones) {
         return respuesta >= 1 && respuesta <= numeroOpciones;

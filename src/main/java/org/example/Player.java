@@ -1,3 +1,4 @@
+/*
 package org.example;
 
 public class Player {
@@ -23,3 +24,4 @@ public class Player {
         }
     }
 }
+*/
