@@ -29,6 +29,46 @@ public class Juego {
         }
     }
 
+    public void seleccionarCategoria(String categoria) {
+        if (categoria == null || categoria.isEmpty()) {
+            System.out.println("No se seleccionó ninguna categoría.");
+            return;
+        }
+
+        System.out.println("Categoría seleccionada: " + categoria);
+
+        preguntasFiltradas = preguntas.stream()
+                .filter(pregunta -> pregunta.getCategoria() != null &&
+                        pregunta.getCategoria().trim().equalsIgnoreCase(categoria))
+                .collect(Collectors.toList());
+
+        if (preguntasFiltradas.isEmpty()) {
+            System.out.println("No hay preguntas disponibles para esta categoría.\n");
+        } else {
+            System.out.println("Preguntas disponibles: " + preguntasFiltradas.size());
+        }
+    }
+
+    public void seleccionarDificultad(String dificultad) {
+        if (dificultad == null || dificultad.isEmpty()) {
+            System.out.println("No se seleccionó ninguna dificultad.");
+            return;
+        }
+
+        System.out.println("Dificultad seleccionada: " + dificultad);
+
+        preguntasFiltradas = preguntasFiltradas.stream()
+                .filter(pregunta -> pregunta.getDificultad() != null &&
+                        pregunta.getDificultad().equalsIgnoreCase(dificultad))
+                .collect(Collectors.toList());
+
+        if (preguntasFiltradas.isEmpty()) {
+            System.out.println("No hay preguntas disponibles para esta dificultad.\n");
+        } else {
+            System.out.println("Preguntas disponibles: " + preguntasFiltradas.size());
+        }
+    }
+
     public Juego() {
         this.puntaje = new Puntaje();
         this.scoreManager = new ScoreManager();
@@ -37,96 +77,97 @@ public class Juego {
     public Puntaje getPuntaje() {
         return puntaje;
     }
-
     public Vidas getVidas() {
         return v;
-    }
-
-    public void jugar(String playerName) {
-        if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
-            System.out.println("No hay preguntas cargadas.\n");
-            return;
-        }
-
-        Scanner scanner = new Scanner(System.in);
-
-        for (Pregunta pregunta : preguntasFiltradas) {
-            if (v.getVidas() <= 0) {
-                System.out.println("¡Se acabaron tus vidas! Fin del juego.\n");
-                break;
-            }
-
-            System.out.println(pregunta.getEnunciado());
-
-            switch (pregunta.getTipoPregunta()) {
-                case "input" -> manejarPreguntaTexto(scanner, pregunta);
-                case "selección múltiple", "verdadero/falso" -> manejarPreguntaOpciones(scanner, pregunta);
-                default -> System.out.println("Tipo de pregunta desconocido.\n");
-            }
-        }
-
-        if (v.getVidas() > 0) {
-            System.out.println("¡Has completado todas las preguntas de esta categoría y dificultad!");
-        }
-        scoreManager.actualizarBestScore(playerName, puntaje.getPuntos());
-    }
-
-
-
-    private void manejarPreguntaTexto(Scanner scanner, Pregunta pregunta) {
-        String respuesta;
-        do {
-            System.out.print("Escribe tu respuesta: ");
-            respuesta = scanner.nextLine();
-            if (!ValidadorRespuestas.validarRespuestaTexto(respuesta)) {
-                System.out.println("Respuesta no válida. Por favor, ingresa un texto válido.");
-            }
-        } while (!ValidadorRespuestas.validarRespuestaTexto(respuesta));
-
-        if (respuesta.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
-            System.out.println("¡Correcto!\n");
-            puntaje.sumarPuntos(15);
-        } else {
-            System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
-            v.perderVida();
-        }
-    }
-
-    private void manejarPreguntaOpciones(Scanner scanner, Pregunta pregunta) {
-        boolean respuestaValida = false;
-        while (!respuestaValida) {
-            for (int i = 0; i < pregunta.getOpciones().size(); i++) {
-                System.out.println((i + 1) + ". " + pregunta.getOpciones().get(i));
-            }
-
-            System.out.print("Tu respuesta (número): ");
-            int respuesta = scanner.nextInt();
-            scanner.nextLine();
-
-            if (ValidadorRespuestas.validarRespuestaSeleccion(respuesta, pregunta.getOpciones().size())) {
-                String opcionSeleccionada = pregunta.getOpciones().get(respuesta - 1);
-                boolean esCorrecta = opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta());
-
-                if (esCorrecta) {
-                    System.out.println("¡Correcto!\n");
-                    puntaje.sumarPuntosPorTipo(pregunta.getTipoPregunta(), true);
-                } else {
-                    System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
-                    v.perderVida();
-                }
-
-                respuestaValida = true;
-            } else {
-                System.out.println("Opción no válida. Por favor, selecciona una opción dentro del rango.\n");
-            }
-        }
-
-
     }
 
     public List<Pregunta> getPreguntasFiltradas() {
         return preguntasFiltradas;
     }
+
+
+
+//    public void jugar(String playerName) {
+//        if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
+//            System.out.println("No hay preguntas cargadas.\n");
+//            return;
+//        }
+//
+//        Scanner scanner = new Scanner(System.in);
+//
+//        for (Pregunta pregunta : preguntasFiltradas) {
+//            if (v.getVidas() <= 0) {
+//                System.out.println("¡Se acabaron tus vidas! Fin del juego.\n");
+//                break;
+//            }
+//
+//            System.out.println(pregunta.getEnunciado());
+//
+//            switch (pregunta.getTipoPregunta()) {
+//                case "input" -> manejarPreguntaTexto(scanner, pregunta);
+//                case "selección múltiple", "verdadero/falso" -> manejarPreguntaOpciones(scanner, pregunta);
+//                default -> System.out.println("Tipo de pregunta desconocido.\n");
+//            }
+//        }
+//
+//        if (v.getVidas() > 0) {
+//            System.out.println("¡Has completado todas las preguntas de esta categoría y dificultad!");
+//        }
+//        scoreManager.actualizarBestScore(playerName, puntaje.getPuntos());
+//    }
+//
+//
+//
+//    private void manejarPreguntaTexto(Scanner scanner, Pregunta pregunta) {
+//        String respuesta;
+//        do {
+//            System.out.print("Escribe tu respuesta: ");
+//            respuesta = scanner.nextLine();
+//            if (!ValidadorRespuestas.validarRespuestaTexto(respuesta)) {
+//                System.out.println("Respuesta no válida. Por favor, ingresa un texto válido.");
+//            }
+//        } while (!ValidadorRespuestas.validarRespuestaTexto(respuesta));
+//
+//        if (respuesta.equalsIgnoreCase(pregunta.getRespuestaCorrecta())) {
+//            System.out.println("¡Correcto!\n");
+//            puntaje.sumarPuntos(15);
+//        } else {
+//            System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
+//            v.perderVida();
+//        }
+//    }
+//
+//    private void manejarPreguntaOpciones(Scanner scanner, Pregunta pregunta) {
+//        boolean respuestaValida = false;
+//        while (!respuestaValida) {
+//            for (int i = 0; i < pregunta.getOpciones().size(); i++) {
+//                System.out.println((i + 1) + ". " + pregunta.getOpciones().get(i));
+//            }
+//
+//            System.out.print("Tu respuesta (número): ");
+//            int respuesta = scanner.nextInt();
+//            scanner.nextLine();
+//
+//            if (ValidadorRespuestas.validarRespuestaSeleccion(respuesta, pregunta.getOpciones().size())) {
+//                String opcionSeleccionada = pregunta.getOpciones().get(respuesta - 1);
+//                boolean esCorrecta = opcionSeleccionada.equalsIgnoreCase(pregunta.getRespuestaCorrecta());
+//
+//                if (esCorrecta) {
+//                    System.out.println("¡Correcto!\n");
+//                    puntaje.sumarPuntosPorTipo(pregunta.getTipoPregunta(), true);
+//                } else {
+//                    System.out.println("Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta() + "\n");
+//                    v.perderVida();
+//                }
+//
+//                respuestaValida = true;
+//            } else {
+//                System.out.println("Opción no válida. Por favor, selecciona una opción dentro del rango.\n");
+//            }
+//        }
+//
+//    }
+
 
 //    public void guardarPuntaje(String archivo) {
 //        puntaje.guardarPuntaje(archivo); //maneja ventana
