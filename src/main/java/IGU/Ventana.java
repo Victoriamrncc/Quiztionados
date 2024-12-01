@@ -2,11 +2,13 @@ package IGU;
 
 import org.example.Juego;
 import org.example.Menu;
+import org.example.ScoreManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 public class Ventana {
     private JFrame frame;
@@ -15,6 +17,7 @@ public class Ventana {
     private JButton button3; // Salir
     private Juego juego;
     private Menu menu;
+    private ScoreManager scoreManager;
 
     public Ventana() {
         // Inicializamos el frame
@@ -32,6 +35,7 @@ public class Ventana {
         juego = new Juego();
         juego.cargarPreguntas("preguntas.json");
         menu = new Menu(juego);
+        scoreManager = new ScoreManager();
 
         // Añadimos acciones a los botones
         button1.addActionListener(new ActionListener() {
@@ -80,7 +84,7 @@ public class Ventana {
         System.out.println("Dificultad: " + dificultad);
 
         juego.jugar(playerName); // Llama al flujo del juego con el jugador configurado
-    }
+    } //menu
 
 
 
@@ -146,11 +150,18 @@ public class Ventana {
     }
 
     private void mostrarPuntajes() {
-        JOptionPane.showMessageDialog(frame, "=== Mejores Puntajes ===\n" +
-                String.join("\n", juego.getScoreManager().getBestScores().entrySet().stream()
-                        .map(entry -> entry.getKey() + ": " + entry.getValue())
-                        .toList()));
-    }
+        Map<String, Integer> bestScores = scoreManager.getBestScores();
+
+        if (bestScores.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "No hay puntajes registrados.",
+                    "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            StringBuilder sb = new StringBuilder("=== Mejores Puntajes ===\n");
+            bestScores.forEach((name, score) -> sb.append(name).append(": ").append(score).append("\n"));
+            JOptionPane.showMessageDialog(frame, sb.toString(),
+                    "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
+        }
+    } //llama bien :)
 
     private void salir() {
         int confirm = JOptionPane.showConfirmDialog(frame, "¿Estás seguro de que quieres salir?",
@@ -158,5 +169,5 @@ public class Ventana {
         if (confirm == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }
+    } // this is fine
 }

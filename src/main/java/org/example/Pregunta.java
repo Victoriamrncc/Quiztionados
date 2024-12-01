@@ -50,6 +50,6 @@ public class Pregunta implements Serializable {
         else if (tipoPregunta.equals("input")) {
             sb.append("Escribe tu respuesta:\n");
         }
-        return sb.toString();
+        return sb.toString(); //aca esta un tema
     }
 }

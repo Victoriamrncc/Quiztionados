@@ -44,16 +44,7 @@ public class ScoreManager {
         guardarBestScores();
     }
 
-    public void mostrarBestScores() {
-        System.out.println("=== Mejores puntajes ===");
-        if (bestScores.isEmpty()) {
-            System.out.println("No hay puntajes registrados.");
-        } else {
-            bestScores.forEach((name, score) -> System.out.println(name + ": " + score));
-        }
-    }
-
     public Map<String, Integer> getBestScores() {
-        return bestScores;
+        return new HashMap<>(bestScores); // Devuelve una copia para proteger la encapsulación
     }
 }

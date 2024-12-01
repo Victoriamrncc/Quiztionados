@@ -13,22 +13,28 @@ public class Juego {
     private ScoreManager scoreManager;
     private Vidas v = new Vidas();
 
+    public void cargarPreguntas(String nombreArchivo) {
+        try {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(nombreArchivo);
+
+            if (inputStream == null) {
+                throw new FileNotFoundException("Archivo no encontrado: " + nombreArchivo);
+            }
+
+            ObjectMapper mapper = new ObjectMapper();
+            preguntas = mapper.readValue(inputStream, new TypeReference<List<Pregunta>>() {});
+            preguntasFiltradas = preguntas;
+        } catch (IOException e) {
+            System.out.println("Error al cargar las preguntas: " + e.getMessage());
+        }
+    }
+
     public Juego() {
         this.puntaje = new Puntaje();
         this.scoreManager = new ScoreManager();
     }
 
-    public void setPreguntasFiltradas(List<Pregunta> preguntasFiltradas) {
-        this.preguntasFiltradas = preguntasFiltradas;
-    }
 
-    public void mostrarBestScores() {
-        scoreManager.mostrarBestScores();
-    }
-
-    public ScoreManager getScoreManager() {
-        return scoreManager;
-    }
 
     public void jugar(String playerName) {
         if (preguntasFiltradas == null || preguntasFiltradas.isEmpty()) {
@@ -59,21 +65,7 @@ public class Juego {
         scoreManager.actualizarBestScore(playerName, puntaje.getPuntos());
     }
 
-    public void cargarPreguntas(String nombreArchivo) {
-        try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(nombreArchivo);
 
-            if (inputStream == null) {
-                throw new FileNotFoundException("Archivo no encontrado: " + nombreArchivo);
-            }
-
-            ObjectMapper mapper = new ObjectMapper();
-            preguntas = mapper.readValue(inputStream, new TypeReference<List<Pregunta>>() {});
-            preguntasFiltradas = preguntas;
-        } catch (IOException e) {
-            System.out.println("Error al cargar las preguntas: " + e.getMessage());
-        }
-    }
 
     private void manejarPreguntaTexto(Scanner scanner, Pregunta pregunta) {
         String respuesta;
@@ -124,15 +116,23 @@ public class Juego {
         }
     }
 
-    public void guardarPuntaje(String archivo) {
-        puntaje.guardarPuntaje(archivo);
-    }
+//    public void guardarPuntaje(String archivo) {
+//        puntaje.guardarPuntaje(archivo); //maneja ventana
+//    }
+//
+//    public void cargarPuntaje(String archivo) {
+//        Puntaje puntajeCargado = Puntaje.cargarPuntaje(archivo);
+//        if (puntajeCargado != null) {
+//            this.puntaje = puntajeCargado;
+//        }
+//    }
 
-    public void cargarPuntaje(String archivo) {
-        Puntaje puntajeCargado = Puntaje.cargarPuntaje(archivo);
-        if (puntajeCargado != null) {
-            this.puntaje = puntajeCargado;
-        }
-    }
+    //    public void setPreguntasFiltradas(List<Pregunta> preguntasFiltradas) {
+//        this.preguntasFiltradas = preguntasFiltradas;
+//    }
+//
+//    public void mostrarBestScores() {
+//        scoreManager.mostrarBestScores();
+//    }
 }
 

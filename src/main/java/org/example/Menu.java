@@ -102,25 +102,25 @@ public class Menu {
         }
     }
 
-    private void mostrarBestScores() {
-        System.out.println("=== Mejores Puntajes ===");
-        juego.mostrarBestScores(); // Mostrar los mejores puntajes
-    }
-
-    private boolean confirmar(String mensaje) {
-        while (true) {
-            System.out.print(mensaje);
-            String respuesta = scanner.nextLine().trim().toLowerCase();
-
-            switch (respuesta) {
-                case "si", "sí" -> {
-                    return true;
-                }
-                case "no" -> {
-                    return false;
-                }
-                default -> System.out.println("Respuesta no válida. Escribe 'si' o 'no'.");
-            }
-        }
-    }
+//    private void mostrarBestScores() {
+//        System.out.println("=== Mejores Puntajes ===");
+//        juego.mostrarBestScores(); // Mostrar los mejores puntajes
+//    }
+//
+//    private boolean confirmar(String mensaje) {
+//        while (true) {
+//            System.out.print(mensaje);
+//            String respuesta = scanner.nextLine().trim().toLowerCase();
+//
+//            switch (respuesta) {
+//                case "si", "sí" -> {
+//                    return true;
+//                }
+//                case "no" -> {
+//                    return false;
+//                }
+//                default -> System.out.println("Respuesta no válida. Escribe 'si' o 'no'.");
+//            }
+//        }
+//    }
 }
