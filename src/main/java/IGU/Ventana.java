@@ -1,27 +1,30 @@
 package IGU;
 
-import controlador.ControladorJuego;
+import org.example.Juego;
 import org.example.Pregunta;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Ventana {
     private JFrame frame;
     private JButton button1; // Iniciar Juego
     private JButton button2; // Mostrar Puntajes
     private JButton button3; // Salir
-    private ControladorJuego controlador;
+    private Juego juego;
 
     public Ventana() {
-        controlador = new ControladorJuego();
-
         // Inicializamos el frame
         frame = new JFrame("Trivia Game");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(3, 1)); // Una columna, tres filas
+
+        // Inicializamos el juego
+        juego = new Juego();
+        juego.cargarPreguntas("preguntas.json");
 
         // Inicializamos los botones
         button1 = new JButton("Iniciar Juego");
@@ -52,70 +55,108 @@ public class Ventana {
         String dificultad = seleccionarDificultad();
         if (dificultad == null) return;
 
-        controlador.seleccionarCategoria(categoria);
-        controlador.seleccionarDificultad(dificultad);
+        // Configura el juego
+        juego.seleccionarCategoria(categoria);
+        juego.seleccionarDificultad(dificultad);
 
-        siguientePregunta();
+        // Muestra la primera pregunta
+        siguientePregunta(playerName);
     }
 
     private String pedirNombreJugador() {
-        String nombre = JOptionPane.showInputDialog(frame, "Ingrese su nombre:", "Nombre del jugador", JOptionPane.PLAIN_MESSAGE);
-        return (nombre != null && !nombre.trim().isEmpty()) ? nombre.trim() : null;
+        JPanel panel = new JPanel(new GridLayout(2, 1));
+        JLabel label = new JLabel("Ingrese su nombre:");
+        JTextField textField = new JTextField();
+
+        panel.add(label);
+        panel.add(textField);
+
+        int option = JOptionPane.showConfirmDialog(
+                frame, panel, "Nombre del jugador", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            String playerName = textField.getText().trim();
+            if (!playerName.isEmpty()) {
+                return playerName;
+            } else {
+                JOptionPane.showMessageDialog(frame, "El nombre no puede estar vacío.");
+                return pedirNombreJugador(); // Reintenta si está vacío.
+            }
+        }
+        return null; // Usuario canceló.
     }
 
     private String seleccionarCategoria() {
         String[] categorias = {"Historia", "Ciencia", "Geografía", "Películas", "Música"};
-        return (String) JOptionPane.showInputDialog(frame, "Seleccione una categoría", "Categoría",
-                JOptionPane.PLAIN_MESSAGE, null, categorias, categorias[0]);
+        JComboBox<String> comboBox = new JComboBox<>(categorias);
+
+        int option = JOptionPane.showConfirmDialog(
+                frame, comboBox, "Seleccione una categoría", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            return (String) comboBox.getSelectedItem();
+        }
+        return null; // Usuario canceló.
     }
 
     private String seleccionarDificultad() {
         String[] dificultades = {"Fácil", "Intermedio", "Difícil"};
-        return (String) JOptionPane.showInputDialog(frame, "Seleccione una dificultad", "Dificultad",
-                JOptionPane.PLAIN_MESSAGE, null, dificultades, dificultades[0]);
+        JComboBox<String> comboBox = new JComboBox<>(dificultades);
+
+        int option = JOptionPane.showConfirmDialog(
+                frame, comboBox, "Seleccione una dificultad", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (option == JOptionPane.OK_OPTION) {
+            return (String) comboBox.getSelectedItem();
+        }
+        return null;
     }
 
     private void mostrarPuntajes() {
-        Map<String, Integer> bestScores = controlador.obtenerMejoresPuntajes();
+        var bestScores = juego.obtenerMejoresPuntajes();
+
         if (bestScores.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "No hay puntajes registrados.", "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "No hay puntajes registrados.",
+                    "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
         } else {
             StringBuilder sb = new StringBuilder("=== Mejores Puntajes ===\n");
             bestScores.forEach((name, score) -> sb.append(name).append(": ").append(score).append("\n"));
-            JOptionPane.showMessageDialog(frame, sb.toString(), "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frame, sb.toString(),
+                    "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private void salir() {
-        int confirm = JOptionPane.showConfirmDialog(frame, "¿Estás seguro de que quieres salir?", "Confirmar salida", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(frame, "¿Estás seguro de que quieres salir?",
+                "Confirmar salida", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }
 
-    private void siguientePregunta() {
-        if (controlador.juegoFinalizado()) {
-            JOptionPane.showMessageDialog(frame, "¡Juego finalizado! Puntaje final: " + controlador.obtenerPuntaje());
-            return;
+    private void siguientePregunta(String playerName) {
+        if (juego.juegoFinalizado()) {
+            JOptionPane.showMessageDialog(frame, "¡Fin del juego! Puntaje final: " + juego.obtenerPuntaje());
+            juego.actualizarBestScore(playerName);
+            mostrarMenuPrincipal();
+        } else {
+            Pregunta siguiente = juego.obtenerSiguientePregunta();
+            if (siguiente != null) {
+                mostrarPregunta(siguiente, playerName);
+            }
         }
-
-        Pregunta pregunta = controlador.obtenerSiguientePregunta();
-        if (pregunta == null) {
-            JOptionPane.showMessageDialog(frame, "¡Has respondido todas las preguntas! Puntaje final: " + controlador.obtenerPuntaje());
-            return;
-        }
-
-        mostrarPregunta(pregunta);
     }
 
-    private void mostrarPregunta(Pregunta pregunta) {
+    private void mostrarPregunta(Pregunta pregunta, String playerName) {
         JPanel panelPregunta = new JPanel(new BorderLayout());
+
         JLabel enunciado = new JLabel("<html>" + pregunta.getEnunciado() + "</html>");
         enunciado.setHorizontalAlignment(SwingConstants.CENTER);
         panelPregunta.add(enunciado, BorderLayout.NORTH);
 
         JPanel opcionesPanel = new JPanel();
         ButtonGroup grupoOpciones = new ButtonGroup();
+
         for (String opcion : pregunta.getOpciones()) {
             JRadioButton botonOpcion = new JRadioButton(opcion);
             botonOpcion.setActionCommand(opcion);
@@ -132,10 +173,15 @@ public class Ventana {
             }
 
             String seleccion = grupoOpciones.getSelection().getActionCommand();
-            boolean esCorrecta = controlador.validarRespuesta(pregunta, seleccion);
+            boolean esCorrecta = juego.validarRespuesta(pregunta, seleccion);
 
-            JOptionPane.showMessageDialog(frame, esCorrecta ? "¡Correcto!" : "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta());
-            siguientePregunta();
+            if (esCorrecta) {
+                JOptionPane.showMessageDialog(frame, "¡Correcto!");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta());
+            }
+
+            siguientePregunta(playerName);
         });
 
         panelPregunta.add(botonResponder, BorderLayout.SOUTH);
@@ -145,5 +191,16 @@ public class Ventana {
         frame.revalidate();
         frame.repaint();
     }
+
+    private void mostrarMenuPrincipal() {
+        frame.getContentPane().removeAll();
+        frame.setLayout(new GridLayout(3, 1));
+        frame.add(button1);
+        frame.add(button2);
+        frame.add(button3);
+        frame.revalidate();
+        frame.repaint();
+    }
 }
+
 
