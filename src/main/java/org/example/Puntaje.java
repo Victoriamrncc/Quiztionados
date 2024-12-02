@@ -19,6 +19,7 @@ public class Puntaje implements Serializable {
         int puntosAAsignar = switch (tipoPregunta.toLowerCase()) {
             case "verdadero/falso" -> 5;
             case "selección múltiple" -> 10;
+            case "input" -> 15;
             default -> 0;
         };
 

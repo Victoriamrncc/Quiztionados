@@ -42,11 +42,14 @@ public class ControladorJuego {
 
     private void siguientePregunta(String playerName) {
         if (juego.juegoFinalizado()) {
+
+            juego.actualizarBestScore(playerName);
             JPanel panelFinJuego = new JPanel(new BorderLayout());
 
             JLabel mensajeFinal = new JLabel("<html>¡Fin del juego!<br>Puntaje final: " + juego.obtenerPuntaje() + "</html>");
             mensajeFinal.setHorizontalAlignment(SwingConstants.CENTER);
             panelFinJuego.add(mensajeFinal, BorderLayout.CENTER);
+
 
             JPanel botonesPanel = new JPanel();
             JButton botonReiniciar = new JButton("Volver a jugar");
