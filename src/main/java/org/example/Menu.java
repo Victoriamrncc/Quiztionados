@@ -1,16 +1,16 @@
-package org.example;
-
-import java.util.Scanner;
-import java.util.stream.Collectors;
-
-public class Menu {
-    private Juego juego;
-    private final Scanner scanner;
-
-    public Menu(Juego juego) {
-        this.juego = juego;
-        this.scanner = new Scanner(System.in);
-    }
+//package org.example;
+//
+//import java.util.Scanner;
+//import java.util.stream.Collectors;
+//
+//public class Menu {
+//    private Juego juego;
+//    private final Scanner scanner;
+//
+//    public Menu(Juego juego) {
+//        this.juego = juego;
+//        this.scanner = new Scanner(System.in);
+//    }
 
 //    public void mostrarMenu() {
 //        boolean continuar = true;
@@ -123,4 +123,4 @@ public class Menu {
 //            }
 //        }
 //    }
-}
+

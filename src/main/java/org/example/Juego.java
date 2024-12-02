@@ -35,35 +35,28 @@ public class Juego {
         }
     }
 
-    public void seleccionarCategoria(String categoria) {
-        if (categoria == null || categoria.isEmpty()) {
-            System.out.println("No se seleccionó ninguna categoría.");
+    /**
+     * Configura el juego filtrando las preguntas según la categoría y dificultad seleccionadas.
+     *
+     * @param categoria  la categoría seleccionada
+     * @param dificultad la dificultad seleccionada
+     */
+    public void configurarJuego(String categoria, String dificultad) {
+        if (categoria == null || categoria.isEmpty() || dificultad == null || dificultad.isEmpty()) {
+            System.out.println("No se seleccionó una categoría o dificultad válida.");
+            preguntasFiltradas = Collections.emptyList();
             return;
         }
 
         preguntasFiltradas = preguntas.stream()
                 .filter(pregunta -> pregunta.getCategoria() != null &&
                         pregunta.getCategoria().trim().equalsIgnoreCase(categoria))
-                .collect(Collectors.toList());
-
-        if (preguntasFiltradas.isEmpty()) {
-            System.out.println("No hay preguntas disponibles para esta categoría.\n");
-        }
-    }
-
-    public void seleccionarDificultad(String dificultad) {
-        if (dificultad == null || dificultad.isEmpty()) {
-            System.out.println("No se seleccionó ninguna dificultad.");
-            return;
-        }
-
-        preguntasFiltradas = preguntasFiltradas.stream()
                 .filter(pregunta -> pregunta.getDificultad() != null &&
                         pregunta.getDificultad().equalsIgnoreCase(dificultad))
                 .collect(Collectors.toList());
 
         if (preguntasFiltradas.isEmpty()) {
-            System.out.println("No hay preguntas disponibles para esta dificultad.\n");
+            System.out.println("No hay preguntas disponibles para la categoría y dificultad seleccionadas.\n");
         }
     }
 
@@ -102,5 +95,3 @@ public class Juego {
         return scoreManager.getBestScores();
     }
 }
-
-

@@ -1,30 +1,27 @@
 package IGU;
 
-import org.example.Juego;
-import org.example.Pregunta;
-
 import javax.swing.*;
 import java.awt.*;
+import org.example.ControladorJuego;
 
 public class Ventana {
     private JFrame frame;
-    private JButton button1, button2, button3; // Botones
-    private Juego juego;
+    private JButton button1, button2, button3;
+    private ControladorJuego controlador;
 
     public Ventana() {
         // Inicializar frame
         frame = new JFrame("Trivia Game");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(3, 1)); // Una columna, tres filas
+        frame.setLayout(new GridLayout(3, 1));
 
-        // Inicializar juego
-        juego = new Juego();
-        juego.cargarPreguntas("preguntas.json");
+        // Inicializar controlador del juego
+        controlador = new ControladorJuego(this);
 
         // Inicializar botones con acciones
-        button1 = crearBoton("Iniciar Juego", e -> iniciarJuego());
-        button2 = crearBoton("Mostrar Puntajes", e -> mostrarPuntajes());
+        button1 = crearBoton("Iniciar Juego", e -> controlador.iniciarJuego());
+        button2 = crearBoton("Mostrar Puntajes", e -> controlador.mostrarPuntajes());
         button3 = crearBoton("Salir", e -> salir());
 
         // Añadir botones al frame
@@ -43,26 +40,16 @@ public class Ventana {
         return boton;
     }
 
-    private void iniciarJuego() {
-        String playerName = pedirEntrada("Ingrese su nombre:", "Nombre del jugador");
-        if (playerName == null) return;
-
-        String categoria = seleccionarOpcion(new String[]{"Historia", "Ciencia", "Geografía", "Películas", "Música"}, "Seleccione una categoría");
-        if (categoria == null) return;
-
-        String dificultad = seleccionarOpcion(new String[]{"Fácil", "Intermedio", "Difícil"}, "Seleccione una dificultad");
-        if (dificultad == null) return;
-
-        // Configurar juego
-        juego.seleccionarCategoria(categoria);
-        juego.seleccionarDificultad(dificultad);
-
-        // Mostrar la primera pregunta
-        siguientePregunta(playerName);
+    private void salir() {
+        int confirm = JOptionPane.showConfirmDialog(frame, "¿Estás seguro de que quieres salir?",
+                "Confirmar salida", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
-    // Método genérico para solicitar entradas de texto
-    private String pedirEntrada(String mensaje, String titulo) {
+    // Métodos auxiliares para interactuar con el usuario
+    public String pedirEntrada(String mensaje, String titulo) {
         JPanel panel = new JPanel(new GridLayout(2, 1));
         JLabel label = new JLabel(mensaje);
         JTextField textField = new JTextField();
@@ -79,14 +66,13 @@ public class Ventana {
                 return input;
             } else {
                 JOptionPane.showMessageDialog(frame, "El campo no puede estar vacío.");
-                return pedirEntrada(mensaje, titulo); // Reintenta si está vacío.
+                return pedirEntrada(mensaje, titulo);
             }
         }
-        return null; // Usuario canceló.
+        return null;
     }
 
-    // Método genérico para seleccionar opciones
-    private String seleccionarOpcion(String[] opciones, String titulo) {
+    public String seleccionarOpcion(String[] opciones, String titulo) {
         JComboBox<String> comboBox = new JComboBox<>(opciones);
 
         int option = JOptionPane.showConfirmDialog(
@@ -95,79 +81,18 @@ public class Ventana {
         return option == JOptionPane.OK_OPTION ? (String) comboBox.getSelectedItem() : null;
     }
 
-    private void mostrarPuntajes() {
-        var bestScores = juego.obtenerMejoresPuntajes();
-
-        String mensaje = bestScores.isEmpty()
-                ? "No hay puntajes registrados."
-                : "=== Mejores Puntajes ===\n" + bestScores.entrySet().stream()
-                .map(entry -> entry.getKey() + ": " + entry.getValue())
-                .reduce("", (a, b) -> a + b + "\n");
-
-        JOptionPane.showMessageDialog(frame, mensaje, "Mejores Puntajes", JOptionPane.INFORMATION_MESSAGE);
+    public void mostrarMensaje(String mensaje, String titulo) {
+        JOptionPane.showMessageDialog(frame, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void salir() {
-        int confirm = JOptionPane.showConfirmDialog(frame, "¿Estás seguro de que quieres salir?",
-                "Confirmar salida", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-    }
-
-    private void siguientePregunta(String playerName) {
-        if (juego.juegoFinalizado()) {
-            JOptionPane.showMessageDialog(frame, "¡Fin del juego! Puntaje final: " + juego.obtenerPuntaje());
-            juego.actualizarBestScore(playerName);
-            mostrarMenuPrincipal();
-        } else {
-            Pregunta siguiente = juego.obtenerSiguientePregunta();
-            if (siguiente != null) {
-                mostrarPregunta(siguiente, playerName);
-            }
-        }
-    }
-
-    private void mostrarPregunta(Pregunta pregunta, String playerName) {
-        JPanel panelPregunta = new JPanel(new BorderLayout());
-
-        JLabel enunciado = new JLabel("<html>" + pregunta.getEnunciado() + "</html>");
-        enunciado.setHorizontalAlignment(SwingConstants.CENTER);
-        panelPregunta.add(enunciado, BorderLayout.NORTH);
-
-        JPanel opcionesPanel = new JPanel();
-        ButtonGroup grupoOpciones = new ButtonGroup();
-
-        for (String opcion : pregunta.getOpciones()) {
-            JRadioButton botonOpcion = new JRadioButton(opcion);
-            botonOpcion.setActionCommand(opcion);
-            grupoOpciones.add(botonOpcion);
-            opcionesPanel.add(botonOpcion);
-        }
-        panelPregunta.add(opcionesPanel, BorderLayout.CENTER);
-
-        JButton botonResponder = crearBoton("Responder", e -> {
-            if (grupoOpciones.getSelection() == null) {
-                JOptionPane.showMessageDialog(frame, "Debes seleccionar una respuesta.");
-                return;
-            }
-
-            String seleccion = grupoOpciones.getSelection().getActionCommand();
-            boolean esCorrecta = juego.validarRespuesta(pregunta, seleccion);
-
-            JOptionPane.showMessageDialog(frame, esCorrecta ? "¡Correcto!" : "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta());
-            siguientePregunta(playerName);
-        });
-
-        panelPregunta.add(botonResponder, BorderLayout.SOUTH);
-
+    public void actualizarPanel(JPanel nuevoPanel) {
         frame.getContentPane().removeAll();
-        frame.add(panelPregunta);
+        frame.add(nuevoPanel);
         frame.revalidate();
         frame.repaint();
     }
 
-    private void mostrarMenuPrincipal() {
+    public void mostrarMenuPrincipal() {
         frame.getContentPane().removeAll();
         frame.setLayout(new GridLayout(3, 1));
         frame.add(button1);
