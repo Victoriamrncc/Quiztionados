@@ -12,9 +12,10 @@ public class Ventana {
     public Ventana() {
 
         frame = new JFrame("Trivia Game");
-        frame.setSize(400, 300);
+        frame.setSize(400, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(3, 1));
+        frame.setLocationRelativeTo(null);
 
         controlador = new ControladorJuego(this);
 
