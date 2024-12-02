@@ -10,30 +10,25 @@ public class Ventana {
     private ControladorJuego controlador;
 
     public Ventana() {
-        // Inicializar frame
+
         frame = new JFrame("Trivia Game");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(3, 1));
 
-        // Inicializar controlador del juego
         controlador = new ControladorJuego(this);
 
-        // Inicializar botones con acciones
         button1 = crearBoton("Iniciar Juego", e -> controlador.iniciarJuego());
         button2 = crearBoton("Mostrar Puntajes", e -> controlador.mostrarPuntajes());
         button3 = crearBoton("Salir", e -> salir());
 
-        // Añadir botones al frame
         frame.add(button1);
         frame.add(button2);
         frame.add(button3);
 
-        // Mostrar frame
         frame.setVisible(true);
     }
 
-    // Método para crear botones con menos redundancia
     private JButton crearBoton(String texto, java.awt.event.ActionListener accion) {
         JButton boton = new JButton(texto);
         boton.addActionListener(accion);
@@ -48,7 +43,6 @@ public class Ventana {
         }
     }
 
-    // Métodos auxiliares para interactuar con el usuario
     public String pedirEntrada(String mensaje, String titulo) {
         JPanel panel = new JPanel(new GridLayout(2, 1));
         JLabel label = new JLabel(mensaje);

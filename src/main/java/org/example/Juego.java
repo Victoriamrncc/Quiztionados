@@ -19,6 +19,12 @@ public class Juego {
         this.vidas = new Vidas();
     }
 
+    public void reiniciarJuego() {
+        this.puntaje = new Puntaje();
+        this.vidas = new Vidas();
+        this.preguntasFiltradas = new ArrayList<>(preguntas);
+    }
+
     public void cargarPreguntas(String nombreArchivo) {
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(nombreArchivo);

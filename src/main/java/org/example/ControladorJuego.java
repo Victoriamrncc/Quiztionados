@@ -24,7 +24,6 @@ public class ControladorJuego {
         String dificultad = ventana.seleccionarOpcion(new String[]{"Fácil", "Intermedio", "Difícil"}, "Seleccione una dificultad");
         if (dificultad == null) return;
 
-        // Configurar juego
         juego.configurarJuego(categoria, dificultad);
 
         siguientePregunta(playerName);
@@ -43,9 +42,29 @@ public class ControladorJuego {
 
     private void siguientePregunta(String playerName) {
         if (juego.juegoFinalizado()) {
-            ventana.mostrarMensaje("¡Fin del juego! Puntaje final: " + juego.obtenerPuntaje(), "Fin del Juego");
-            juego.actualizarBestScore(playerName);
-            ventana.mostrarMenuPrincipal();
+            JPanel panelFinJuego = new JPanel(new BorderLayout());
+
+            JLabel mensajeFinal = new JLabel("<html>¡Fin del juego!<br>Puntaje final: " + juego.obtenerPuntaje() + "</html>");
+            mensajeFinal.setHorizontalAlignment(SwingConstants.CENTER);
+            panelFinJuego.add(mensajeFinal, BorderLayout.CENTER);
+
+            JPanel botonesPanel = new JPanel();
+            JButton botonReiniciar = new JButton("Volver a jugar");
+            JButton botonSalir = new JButton("Salir");
+
+            botonReiniciar.addActionListener(e -> {
+                juego.reiniciarJuego();
+                ventana.mostrarMenuPrincipal();
+            });
+
+            botonSalir.addActionListener(e -> System.exit(0));
+
+            botonesPanel.add(botonReiniciar);
+            botonesPanel.add(botonSalir);
+
+            panelFinJuego.add(botonesPanel, BorderLayout.SOUTH);
+
+            ventana.actualizarPanel(panelFinJuego);
         } else {
             Pregunta siguiente = juego.obtenerSiguientePregunta();
             if (siguiente != null) {
@@ -54,6 +73,8 @@ public class ControladorJuego {
         }
     }
 
+
+
     private void mostrarPregunta(Pregunta pregunta, String playerName) {
         JPanel panelPregunta = new JPanel(new BorderLayout());
 
@@ -61,36 +82,64 @@ public class ControladorJuego {
         enunciado.setHorizontalAlignment(SwingConstants.CENTER);
         panelPregunta.add(enunciado, BorderLayout.NORTH);
 
-        JPanel opcionesPanel = new JPanel();
-        ButtonGroup grupoOpciones = new ButtonGroup();
+        if (pregunta.getTipoPregunta().equalsIgnoreCase("input")) {
 
-        for (String opcion : pregunta.getOpciones()) {
-            JRadioButton botonOpcion = new JRadioButton(opcion);
-            botonOpcion.setActionCommand(opcion);
-            grupoOpciones.add(botonOpcion);
-            opcionesPanel.add(botonOpcion);
-        }
-        panelPregunta.add(opcionesPanel, BorderLayout.CENTER);
+            JTextField campoTexto = new JTextField();
+            panelPregunta.add(campoTexto, BorderLayout.CENTER);
 
-        JButton botonResponder = new JButton("Responder");
-        botonResponder.addActionListener(e -> {
-            if (grupoOpciones.getSelection() == null) {
-                ventana.mostrarMensaje("Debes seleccionar una respuesta.", "Advertencia");
-                return;
+            JButton botonResponder = new JButton("Responder");
+            botonResponder.addActionListener(e -> {
+                String respuesta = campoTexto.getText().trim();
+                if (respuesta.isEmpty()) {
+                    ventana.mostrarMensaje("Por favor, escribe una respuesta.", "Advertencia");
+                    return;
+                }
+
+                boolean esCorrecta = juego.validarRespuesta(pregunta, respuesta);
+
+                ventana.mostrarMensaje(
+                        esCorrecta ? "¡Correcto!" : "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta(),
+                        "Resultado"
+                );
+                siguientePregunta(playerName);
+            });
+
+            panelPregunta.add(botonResponder, BorderLayout.SOUTH);
+
+        } else {
+
+            JPanel opcionesPanel = new JPanel();
+            ButtonGroup grupoOpciones = new ButtonGroup();
+
+            for (String opcion : pregunta.getOpciones()) {
+                JRadioButton botonOpcion = new JRadioButton(opcion);
+                botonOpcion.setActionCommand(opcion);
+                grupoOpciones.add(botonOpcion);
+                opcionesPanel.add(botonOpcion);
             }
+            panelPregunta.add(opcionesPanel, BorderLayout.CENTER);
 
-            String seleccion = grupoOpciones.getSelection().getActionCommand();
-            boolean esCorrecta = juego.validarRespuesta(pregunta, seleccion);
+            JButton botonResponder = new JButton("Responder");
+            botonResponder.addActionListener(e -> {
+                if (grupoOpciones.getSelection() == null) {
+                    ventana.mostrarMensaje("Debes seleccionar una respuesta.", "Advertencia");
+                    return;
+                }
 
-            ventana.mostrarMensaje(
-                    esCorrecta ? "¡Correcto!" : "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta(),
-                    "Resultado"
-            );
-            siguientePregunta(playerName);
-        });
+                String seleccion = grupoOpciones.getSelection().getActionCommand();
+                boolean esCorrecta = juego.validarRespuesta(pregunta, seleccion);
 
-        panelPregunta.add(botonResponder, BorderLayout.SOUTH);
+                ventana.mostrarMensaje(
+                        esCorrecta ? "¡Correcto!" : "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta(),
+                        "Resultado"
+                );
+                siguientePregunta(playerName);
+            });
+
+            panelPregunta.add(botonResponder, BorderLayout.SOUTH);
+        }
 
         ventana.actualizarPanel(panelPregunta);
     }
+
 }
