@@ -84,6 +84,8 @@ public class ControladorJuego {
         JLabel enunciado = new JLabel("<html>" + pregunta.getEnunciado() + "</html>");
         enunciado.setHorizontalAlignment(SwingConstants.CENTER);
         panelPregunta.add(enunciado, BorderLayout.NORTH);
+        JLabel vidasRestantes = new JLabel("Vidas restantes: " + juego.obtenerVidasRestantes());
+        vidasRestantes.setHorizontalAlignment(SwingConstants.CENTER);
 
         if (pregunta.getTipoPregunta().equalsIgnoreCase("input")) {
 
@@ -139,7 +141,11 @@ public class ControladorJuego {
                 siguientePregunta(playerName);
             });
 
-            panelPregunta.add(botonResponder, BorderLayout.SOUTH);
+
+            JPanel panelInferior = new JPanel(new BorderLayout());
+            panelInferior.add(vidasRestantes, BorderLayout.NORTH);
+            panelInferior.add(botonResponder, BorderLayout.SOUTH);
+            panelPregunta.add(panelInferior, BorderLayout.SOUTH);
         }
 
         ventana.actualizarPanel(panelPregunta);
