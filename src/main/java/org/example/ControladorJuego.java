@@ -24,9 +24,7 @@ public class ControladorJuego {
         String dificultad = ventana.seleccionarOpcion(new String[]{"Fácil", "Intermedio", "Difícil"}, "Seleccione una dificultad");
         if (dificultad == null) return;
 
-        // Configurar juego
         juego.configurarJuego(categoria, dificultad);
-
         siguientePregunta(playerName);
     }
 
@@ -56,11 +54,9 @@ public class ControladorJuego {
 
     private void mostrarPregunta(Pregunta pregunta, String playerName) {
         JPanel panelPregunta = new JPanel(new BorderLayout());
-
         JLabel enunciado = new JLabel("<html>" + pregunta.getEnunciado() + "</html>");
         enunciado.setHorizontalAlignment(SwingConstants.CENTER);
         panelPregunta.add(enunciado, BorderLayout.NORTH);
-
         JPanel opcionesPanel = new JPanel();
         ButtonGroup grupoOpciones = new ButtonGroup();
 
@@ -71,7 +67,10 @@ public class ControladorJuego {
             opcionesPanel.add(botonOpcion);
         }
         panelPregunta.add(opcionesPanel, BorderLayout.CENTER);
-
+        JPanel panelInferior = new JPanel(new BorderLayout());
+        JLabel labelVidas = new JLabel("Vidas restantes: " + juego.obtenerVidasRestantes());
+        labelVidas.setHorizontalAlignment(SwingConstants.CENTER);
+        panelInferior.add(labelVidas, BorderLayout.NORTH);
         JButton botonResponder = new JButton("Responder");
         botonResponder.addActionListener(e -> {
             if (grupoOpciones.getSelection() == null) {
@@ -82,6 +81,14 @@ public class ControladorJuego {
             String seleccion = grupoOpciones.getSelection().getActionCommand();
             boolean esCorrecta = juego.validarRespuesta(pregunta, seleccion);
 
+            if (!esCorrecta) {
+                labelVidas.setText("Vidas restantes: " + juego.obtenerVidasRestantes());
+                if (juego.obtenerVidasRestantes() == 0) {
+                    ventana.mostrarMensaje("¡Has perdido todas tus vidas! Fin del juego.", "Fin del Juego");
+                    ventana.mostrarMenuPrincipal();
+                    return;
+                }
+            }
             ventana.mostrarMensaje(
                     esCorrecta ? "¡Correcto!" : "Incorrecto. La respuesta correcta era: " + pregunta.getRespuestaCorrecta(),
                     "Resultado"
@@ -89,8 +96,10 @@ public class ControladorJuego {
             siguientePregunta(playerName);
         });
 
-        panelPregunta.add(botonResponder, BorderLayout.SOUTH);
+        panelInferior.add(botonResponder, BorderLayout.SOUTH);
+        panelPregunta.add(panelInferior, BorderLayout.SOUTH);
 
         ventana.actualizarPanel(panelPregunta);
     }
 }
+

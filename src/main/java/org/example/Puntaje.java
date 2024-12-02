@@ -24,8 +24,6 @@ public class Puntaje implements Serializable {
 
         this.puntos += puntosAAsignar;
     }
-
-
     public void guardarPuntaje(String archivo) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
             oos.writeObject(this);
@@ -34,7 +32,6 @@ public class Puntaje implements Serializable {
             System.out.println("Error al guardar el puntaje: \n" + e.getMessage());
         }
     }
-
     public static Puntaje cargarPuntaje(String archivo) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
             return (Puntaje) ois.readObject();

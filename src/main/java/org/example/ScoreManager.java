@@ -45,6 +45,6 @@ public class ScoreManager {
     }
 
     public Map<String, Integer> getBestScores() {
-        return new HashMap<>(bestScores); // Devuelve una copia para proteger la encapsulación
+        return new HashMap<>(bestScores);
     }
 }

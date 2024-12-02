@@ -34,13 +34,6 @@ public class Juego {
             System.out.println("Error al cargar las preguntas: " + e.getMessage());
         }
     }
-
-    /**
-     * Configura el juego filtrando las preguntas según la categoría y dificultad seleccionadas.
-     *
-     * @param categoria  la categoría seleccionada
-     * @param dificultad la dificultad seleccionada
-     */
     public void configurarJuego(String categoria, String dificultad) {
         if (categoria == null || categoria.isEmpty() || dificultad == null || dificultad.isEmpty()) {
             System.out.println("No se seleccionó una categoría o dificultad válida.");
