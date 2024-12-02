@@ -76,8 +76,6 @@ public class ControladorJuego {
         }
     }
 
-
-
     private void mostrarPregunta(Pregunta pregunta, String playerName) {
         JPanel panelPregunta = new JPanel(new BorderLayout());
 
@@ -140,7 +138,6 @@ public class ControladorJuego {
                 );
                 siguientePregunta(playerName);
             });
-
 
             JPanel panelInferior = new JPanel(new BorderLayout());
             panelInferior.add(vidasRestantes, BorderLayout.NORTH);
