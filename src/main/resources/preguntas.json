@@ -1,46 +1,486 @@
 [
   {
-    "enunciado": "¿Cuál es la capital de Francia?",
-    "opciones": ["Madrid", "Paris", "Londres", "Roma"],
-    "respuestaCorrecta": "Paris",
+    "enunciado": "¿Es cierto que 'Titanic' es una película dirigida por James Cameron?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿El personaje principal de 'Forrest Gump' fue interpretado por Tom Hanks?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿'Avatar' fue lanzada antes del año 2000?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Falso",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que 'Toy Story' fue la primera película animada por completo con CGI?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿'The Godfather' fue dirigida por Steven Spielberg?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Falso",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuál fue el título de la película en la que Leonardo DiCaprio ganó su primer Oscar?",
+    "opciones": ["El Renacido", "Titanic", "El Lobo de Wall Street", "Atrápame si puedes"],
+    "respuestaCorrecta": "El Renacido",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Qué película de Disney presentó por primera vez a Elsa y Anna?",
+    "opciones": ["Frozen", "Enredados", "Valiente", "Zootopia"],
+    "respuestaCorrecta": "Frozen",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Quién interpretó al personaje de Jack Sparrow en 'Piratas del Caribe'?",
+    "opciones": ["Johnny Depp", "Orlando Bloom", "Keira Knightley", "Geoffrey Rush"],
+    "respuestaCorrecta": "Johnny Depp",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre de la película que cuenta la historia de un payaso terrorífico llamado Pennywise.",
+    "opciones": [],
+    "respuestaCorrecta": "It",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del actor principal en la película 'Gladiador'.",
+    "opciones": [],
+    "respuestaCorrecta": "Russell Crowe",
+    "categoria": "Películas",
+    "dificultad": "fácil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que 'Inception' fue dirigida por Christopher Nolan?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Películas",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿'El Padrino II' es una película estrenada antes de 1980?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Películas",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que 'Jurassic Park' se basa en un libro de Michael Crichton?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Películas",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿En qué año se estrenó la película 'Matrix'?",
+    "opciones": ["1999", "2000", "1998", "2001"],
+    "respuestaCorrecta": "1999",
+    "categoria": "Películas",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Cuál es el nombre de la inteligencia artificial en la película '2001: Una odisea del espacio'?",
+    "opciones": ["HAL 9000", "Skynet", "Ultron", "Deep Blue"],
+    "respuestaCorrecta": "HAL 9000",
+    "categoria": "Películas",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Quién dirigió la trilogía de 'El Señor de los Anillos'?",
+    "opciones": ["Peter Jackson", "Steven Spielberg", "Guillermo del Toro", "James Cameron"],
+    "respuestaCorrecta": "Peter Jackson",
+    "categoria": "Películas",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre de la película que popularizó la frase: \"May the Force be with you\".",
+    "opciones": [],
+    "respuestaCorrecta": "Star Wars",
+    "categoria": "Películas",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del actor que interpretó al Joker en 'The Dark Knight'.",
+    "opciones": [],
+    "respuestaCorrecta": "Heath Ledger",
+    "categoria": "Películas",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que 'Pulp Fiction' ganó el premio Oscar a Mejor Película?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Falso",
+    "categoria": "Películas",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que 'Ciudadano Kane' fue dirigida por Orson Welles?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Películas",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Qué película ganó el Oscar a Mejor Película en 1994?",
+    "opciones": ["Forrest Gump", "Pulp Fiction", "The Shawshank Redemption", "El Rey León"],
+    "respuestaCorrecta": "Forrest Gump",
+    "categoria": "Películas",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿En qué país se filmaron la mayoría de las escenas de 'El Señor de los Anillos'?",
+    "opciones": ["Australia", "Nueva Zelanda", "Reino Unido", "Canadá"],
+    "respuestaCorrecta": "Nueva Zelanda",
+    "categoria": "Películas",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Quién interpretó a Michael Corleone en 'El Padrino'?",
+    "opciones": ["Al Pacino", "Marlon Brando", "Robert De Niro", "James Caan"],
+    "respuestaCorrecta": "Al Pacino",
+    "categoria": "Películas",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del director de la película 'Blade Runner'.",
+    "opciones": [],
+    "respuestaCorrecta": "Ridley Scott",
+    "categoria": "Películas",
+    "dificultad": "difícil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el título completo de la película que marcó el debut de Quentin Tarantino como director.",
+    "opciones": [],
+    "respuestaCorrecta": "Reservoir Dogs",
+    "categoria": "Películas",
+    "dificultad": "difícil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que Cristóbal Colón llegó a América en 1492?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿George Washington fue el primer presidente de los Estados Unidos?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que la Revolución Francesa comenzó en 1789?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿La Edad Media se situó entre los siglos V y XV?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Adolf Hitler fue el líder de Italia durante la Segunda Guerra Mundial?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Falso",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿En qué año ocurrió la caída del Muro de Berlín?",
+    "opciones": ["1989", "1990", "1988", "1991"],
+    "respuestaCorrecta": "1989",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Quién lideró la independencia de la India en el siglo XX?",
+    "opciones": ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "Indira Gandhi"],
+    "respuestaCorrecta": "Mahatma Gandhi",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Qué evento marcó el inicio de la Segunda Guerra Mundial?",
+    "opciones": ["La invasión de Polonia", "El ataque a Pearl Harbor", "El Tratado de Versalles", "La caída de Francia"],
+    "respuestaCorrecta": "La invasión de Polonia",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del explorador que descubrió América.",
+    "opciones": [],
+    "respuestaCorrecta": "Cristóbal Colón",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del líder del movimiento por los derechos civiles en Estados Unidos conocido por su discurso 'I Have a Dream'.",
+    "opciones": [],
+    "respuestaCorrecta": "Martin Luther King Jr.",
+    "categoria": "Historia",
+    "dificultad": "fácil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que Napoleón Bonaparte fue exiliado a la isla de Elba?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Historia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿El Renacimiento comenzó en Italia?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Historia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿La Guerra Fría enfrentó a Estados Unidos y Japón?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Falso",
+    "categoria": "Historia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿En qué país ocurrió la Revolución de Octubre de 1917?",
+    "opciones": ["Rusia", "Francia", "Alemania", "China"],
+    "respuestaCorrecta": "Rusia",
+    "categoria": "Historia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Qué imperio construyó la Gran Muralla China?",
+    "opciones": ["Dinastía Qin", "Imperio Mogol", "Dinastía Tang", "Dinastía Han"],
+    "respuestaCorrecta": "Dinastía Qin",
+    "categoria": "Historia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿En qué año se firmó la Declaración de Independencia de los Estados Unidos?",
+    "opciones": ["1776", "1783", "1775", "1781"],
+    "respuestaCorrecta": "1776",
+    "categoria": "Historia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del tratado que puso fin a la Primera Guerra Mundial.",
+    "opciones": [],
+    "respuestaCorrecta": "Tratado de Versalles",
+    "categoria": "Historia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del imperio que conquistó Constantinopla en 1453.",
+    "opciones": [],
+    "respuestaCorrecta": "Imperio Otomano",
+    "categoria": "Historia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que la Revolución Industrial comenzó en el siglo XVIII?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Historia",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que el Tratado de Tordesillas dividió el mundo entre España y Portugal?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Historia",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿En qué año comenzó la Primera Guerra Mundial?",
+    "opciones": ["1914", "1918", "1912", "1920"],
+    "respuestaCorrecta": "1914",
+    "categoria": "Historia",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Quién fue el último faraón de Egipto?",
+    "opciones": ["Cleopatra", "Tutankamón", "Ramsés II", "Akhenatón"],
+    "respuestaCorrecta": "Cleopatra",
+    "categoria": "Historia",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Qué evento marcó el final de la Edad Media?",
+    "opciones": ["Caída de Constantinopla", "Descubrimiento de América", "Guerra de los Cien Años", "Peste Negra"],
+    "respuestaCorrecta": "Caída de Constantinopla",
+    "categoria": "Historia",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del autor de 'El Príncipe'.",
+    "opciones": [],
+    "respuestaCorrecta": "Nicolás Maquiavelo",
+    "categoria": "Historia",
+    "dificultad": "difícil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del tratado que puso fin a la Guerra de los Treinta Años.",
+    "opciones": [],
+    "respuestaCorrecta": "Tratado de Westfalia",
+    "categoria": "Historia",
+    "dificultad": "difícil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que el río Amazonas es el más largo del mundo?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Falso",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿El Monte Everest es la montaña más alta del mundo?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que Australia es tanto un país como un continente?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿El desierto del Sahara está ubicado en América del Norte?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Falso",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que París es la capital de Francia?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuál es el continente más grande del mundo?",
+    "opciones": ["Asia", "África", "América", "Europa"],
+    "respuestaCorrecta": "Asia",
     "categoria": "Geografía",
     "dificultad": "fácil",
     "tipoPregunta": "selección múltiple"
   },
   {
-    "enunciado": "¿En qué continente se encuentra Egipto?",
-    "opciones": ["Asia", "Europa", "África", "Oceanía"],
+    "enunciado": "¿Cuál es la capital de España?",
+    "opciones": ["Madrid", "Barcelona", "Sevilla", "Valencia"],
+    "respuestaCorrecta": "Madrid",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿En qué océano está ubicado Hawái?",
+    "opciones": ["Océano Pacífico", "Océano Atlántico", "Océano Índico", "Océano Ártico"],
+    "respuestaCorrecta": "Océano Pacífico",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del país donde se encuentra la Torre Eiffel.",
+    "opciones": [],
+    "respuestaCorrecta": "Francia",
+    "categoria": "Geografía",
+    "dificultad": "fácil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del continente donde está ubicado Egipto.",
+    "opciones": [],
     "respuestaCorrecta": "África",
     "categoria": "Geografía",
     "dificultad": "fácil",
-    "tipoPregunta": "selección múltiple"
+    "tipoPregunta": "input"
   },
   {
-    "enunciado": "¿Es Australia un continente y un país?",
-    "opciones": ["Verdadero", "Falso"],
-    "respuestaCorrecta": "Verdadero",
-    "categoria": "Geografía",
-    "dificultad": "fácil",
-    "tipoPregunta": "verdadero/falso"
-  },
-  {
-    "enunciado": "¿Qué océano está al este de los Estados Unidos?",
-    "opciones": ["Atlántico", "Pacífico", "Índico", "Ártico"],
-    "respuestaCorrecta": "Atlántico",
-    "categoria": "Geografía",
-    "dificultad": "intermedio",
-    "tipoPregunta": "selección múltiple"
-  },
-  {
-    "enunciado": "¿En qué continente se encuentra el Amazonas?",
-    "opciones": ["Asia", "África", "América", "Oceanía"],
-    "respuestaCorrecta": "América",
-    "categoria": "Geografía",
-    "dificultad": "intermedio",
-    "tipoPregunta": "selección múltiple"
-  },
-  {
-    "enunciado": "¿El sol está en el centro del sistema solar?",
+    "enunciado": "¿Es cierto que el río Nilo fluye hacia el norte?",
     "opciones": ["Verdadero", "Falso"],
     "respuestaCorrecta": "Verdadero",
     "categoria": "Geografía",
@@ -48,56 +488,119 @@
     "tipoPregunta": "verdadero/falso"
   },
   {
-    "enunciado": "¿Cuál es la montaña más alta del mundo?",
-    "opciones": ["K2", "Makalu", "Everest", "Kangchenjunga"],
-    "respuestaCorrecta": "Everest",
+    "enunciado": "¿Es cierto que Groenlandia es un país independiente?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Falso",
     "categoria": "Geografía",
-    "dificultad": "difícil",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿El desierto de Atacama está ubicado en Chile?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Geografía",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuál es el lago más grande del mundo?",
+    "opciones": ["Mar Caspio", "Lago Superior", "Lago Victoria", "Lago Baikal"],
+    "respuestaCorrecta": "Mar Caspio",
+    "categoria": "Geografía",
+    "dificultad": "intermedio",
     "tipoPregunta": "selección múltiple"
   },
   {
-    "enunciado": "¿El mar Muerto se encuentra en qué dos países?",
-    "opciones": ["Israel y Palestina", "Egipto y Jordania", "Israel y Jordania", "Egipto y Palestina"],
-    "respuestaCorrecta": "Israel y Jordania",
+    "enunciado": "¿En qué país se encuentra el monte Kilimanjaro?",
+    "opciones": ["Tanzania", "Kenia", "Sudáfrica", "Uganda"],
+    "respuestaCorrecta": "Tanzania",
     "categoria": "Geografía",
-    "dificultad": "difícil",
+    "dificultad": "intermedio",
     "tipoPregunta": "selección múltiple"
   },
   {
-    "enunciado": "Escribe el nombre de un desierto que se encuentra en África.",
+    "enunciado": "¿Cuál es la capital de Canadá?",
+    "opciones": ["Ottawa", "Toronto", "Vancouver", "Montreal"],
+    "respuestaCorrecta": "Ottawa",
+    "categoria": "Geografía",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del desierto más grande del mundo.",
     "opciones": [],
     "respuestaCorrecta": "Sáhara",
+    "categoria": "Geografía",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre de la cordillera más larga del mundo.",
+    "opciones": [],
+    "respuestaCorrecta": "Andes",
+    "categoria": "Geografía",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que el lago Baikal contiene el 20% del agua dulce no congelada del mundo?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Geografía",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que Islandia no tiene un ejército permanente?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Geografía",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuál es el punto más profundo del océano?",
+    "opciones": ["Fosa de las Marianas", "Fosa de Puerto Rico", "Fosa de Tonga", "Fosa de Kermadec"],
+    "respuestaCorrecta": "Fosa de las Marianas",
+    "categoria": "Geografía",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿En qué país se encuentra el desierto de Gobi?",
+    "opciones": ["Mongolia", "China", "Ambos", "Kazajistán"],
+    "respuestaCorrecta": "Ambos",
+    "categoria": "Geografía",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Cuál es la capital de Bután?",
+    "opciones": ["Thimphu", "Katmandú", "Dhaka", "Lhasa"],
+    "respuestaCorrecta": "Thimphu",
+    "categoria": "Geografía",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del río que cruza la ciudad de Londres.",
+    "opciones": [],
+    "respuestaCorrecta": "Támesis",
     "categoria": "Geografía",
     "dificultad": "difícil",
     "tipoPregunta": "input"
   },
   {
-    "enunciado": "¿Cuál es la capital de Japón?",
-    "opciones": ["Seúl", "Beijing", "Tokio", "Hanoi"],
-    "respuestaCorrecta": "Tokio",
+    "enunciado": "Escribe el nombre del país con más islas en el mundo.",
+    "opciones": [],
+    "respuestaCorrecta": "Suecia",
     "categoria": "Geografía",
     "dificultad": "difícil",
-    "tipoPregunta": "selección múltiple"
+    "tipoPregunta": "input"
   },
   {
-    "enunciado": "¿Es cierto que el Monte Everest está en Nepal?",
-    "opciones": ["Verdadero", "Falso"],
-    "respuestaCorrecta": "Verdadero",
-    "categoria": "Geografía",
-    "dificultad": "intermedio",
-    "tipoPregunta": "verdadero/falso"
-  },
-
-  {
-    "enunciado": "¿Cuál es el elemento químico con el símbolo O?",
-    "opciones": ["Osmio", "Oxígeno", "Oro", "Ozono"],
-    "respuestaCorrecta": "Oxígeno",
-    "categoria": "Ciencia",
-    "dificultad": "fácil",
-    "tipoPregunta": "selección múltiple"
-  },
-  {
-    "enunciado": "¿Es el agua un compuesto formado por oxígeno e hidrógeno?",
+    "enunciado": "¿Es cierto que el agua está compuesta por hidrógeno y oxígeno?",
     "opciones": ["Verdadero", "Falso"],
     "respuestaCorrecta": "Verdadero",
     "categoria": "Ciencia",
@@ -105,23 +608,79 @@
     "tipoPregunta": "verdadero/falso"
   },
   {
-    "enunciado": "¿Cuántos planetas hay en el sistema solar?",
-    "opciones": ["8", "9", "7", "10"],
-    "respuestaCorrecta": "8",
+    "enunciado": "¿El Sol es una estrella?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que el oxígeno es el elemento más abundante en la atmósfera terrestre?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Falso",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Todos los mamíferos son animales vertebrados?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿El agua hierve a 100 grados Celsius al nivel del mar?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuál es el planeta más cercano al Sol?",
+    "opciones": ["Mercurio", "Venus", "Tierra", "Marte"],
+    "respuestaCorrecta": "Mercurio",
     "categoria": "Ciencia",
     "dificultad": "fácil",
     "tipoPregunta": "selección múltiple"
   },
   {
-    "enunciado": "¿Cuál es la fórmula química del agua?",
-    "opciones": ["H2O", "H2O2", "H2SO4", "CO2"],
-    "respuestaCorrecta": "H2O",
+    "enunciado": "¿Qué tipo de sangre es considerado el donante universal?",
+    "opciones": ["O-", "O+", "A-", "AB+"],
+    "respuestaCorrecta": "O-",
     "categoria": "Ciencia",
-    "dificultad": "intermedio",
+    "dificultad": "fácil",
     "tipoPregunta": "selección múltiple"
   },
   {
-    "enunciado": "¿El oro es un metal que se encuentra en la corteza terrestre?",
+    "enunciado": "¿Qué órgano humano es responsable de bombear la sangre?",
+    "opciones": ["Corazón", "Pulmones", "Hígado", "Riñón"],
+    "respuestaCorrecta": "Corazón",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del gas que las plantas necesitan para la fotosíntesis.",
+    "opciones": [],
+    "respuestaCorrecta": "Dióxido de carbono",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del elemento químico con el símbolo H.",
+    "opciones": [],
+    "respuestaCorrecta": "Hidrógeno",
+    "categoria": "Ciencia",
+    "dificultad": "fácil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que los electrones tienen carga negativa?",
     "opciones": ["Verdadero", "Falso"],
     "respuestaCorrecta": "Verdadero",
     "categoria": "Ciencia",
@@ -129,31 +688,103 @@
     "tipoPregunta": "verdadero/falso"
   },
   {
-    "enunciado": "¿La teoría de la relatividad fue propuesta por?",
-    "opciones": ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Niels Bohr"],
-    "respuestaCorrecta": "Albert Einstein",
+    "enunciado": "¿Es cierto que la luz visible es una forma de radiación electromagnética?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿El ADN se encuentra dentro del núcleo de una célula?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuál es la velocidad de la luz en el vacío?",
+    "opciones": ["299,792 km/s", "150,000 km/s", "300,000 km/s", "250,000 km/s"],
+    "respuestaCorrecta": "299,792 km/s",
+    "categoria": "Ciencia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Qué parte del cuerpo humano controla el sistema nervioso?",
+    "opciones": ["Cerebro", "Corazón", "Médula espinal", "Estómago"],
+    "respuestaCorrecta": "Cerebro",
+    "categoria": "Ciencia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Qué fenómeno explica por qué los objetos caen al suelo?",
+    "opciones": ["Gravedad", "Magnetismo", "Inercia", "Fricción"],
+    "respuestaCorrecta": "Gravedad",
+    "categoria": "Ciencia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del proceso por el cual las plantas producen oxígeno.",
+    "opciones": [],
+    "respuestaCorrecta": "Fotosíntesis",
+    "categoria": "Ciencia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del científico que propuso la teoría de la evolución.",
+    "opciones": [],
+    "respuestaCorrecta": "Charles Darwin",
+    "categoria": "Ciencia",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que la teoría de la relatividad fue propuesta por Albert Einstein?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que el elemento más abundante en el universo es el hidrógeno?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Ciencia",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuál es la unidad de medida de la fuerza en el Sistema Internacional?",
+    "opciones": ["Newton", "Joule", "Watt", "Pascal"],
+    "respuestaCorrecta": "Newton",
     "categoria": "Ciencia",
     "dificultad": "difícil",
     "tipoPregunta": "selección múltiple"
   },
   {
-    "enunciado": "¿Cuántos huesos tiene el cuerpo humano adulto?",
-    "opciones": ["206", "205", "210", "215"],
-    "respuestaCorrecta": "206",
+    "enunciado": "¿Cuál es el órgano más grande del cuerpo humano?",
+    "opciones": ["Piel", "Hígado", "Corazón", "Pulmones"],
+    "respuestaCorrecta": "Piel",
     "categoria": "Ciencia",
     "dificultad": "difícil",
     "tipoPregunta": "selección múltiple"
   },
   {
-    "enunciado": "¿Cuál es el gas más abundante en la atmósfera terrestre?",
-    "opciones": ["Oxígeno", "Nitrógeno", "Argón", "Dióxido de carbono"],
-    "respuestaCorrecta": "Nitrógeno",
+    "enunciado": "¿Cuál es el segundo elemento más abundante en la corteza terrestre?",
+    "opciones": ["Silicio", "Oxígeno", "Hierro", "Aluminio"],
+    "respuestaCorrecta": "Silicio",
     "categoria": "Ciencia",
     "dificultad": "difícil",
     "tipoPregunta": "selección múltiple"
   },
   {
-    "enunciado": "Escribe el nombre del físico que desarrolló la teoría cuántica.",
+    "enunciado": "Escribe el nombre del físico que desarrolló la mecánica cuántica.",
     "opciones": [],
     "respuestaCorrecta": "Max Planck",
     "categoria": "Ciencia",
@@ -161,19 +792,211 @@
     "tipoPregunta": "input"
   },
   {
-    "enunciado": "¿La electricidad es un tipo de energía?",
+    "enunciado": "Escribe el nombre de la teoría que explica el origen del universo.",
+    "opciones": [],
+    "respuestaCorrecta": "Big Bang",
+    "categoria": "Ciencia",
+    "dificultad": "difícil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que The Beatles es una banda originaria de Inglaterra?",
     "opciones": ["Verdadero", "Falso"],
     "respuestaCorrecta": "Verdadero",
-    "categoria": "Ciencia",
+    "categoria": "Música",
     "dificultad": "fácil",
     "tipoPregunta": "verdadero/falso"
   },
   {
-    "enunciado": "¿Quién fue el primer presidente de los Estados Unidos?",
-    "opciones": ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"],
-    "respuestaCorrecta": "George Washington",
-    "categoria": "Historia",
+    "enunciado": "¿El instrumento más usado en el flamenco es la guitarra?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Música",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que Michael Jackson es conocido como el 'Rey del Pop'?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Música",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿La batería es un instrumento de percusión?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Música",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que Beethoven era un compositor clásico?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Música",
+    "dificultad": "fácil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Qué cantante es conocido por éxitos como 'Shape of You' y 'Perfect'?",
+    "opciones": ["Ed Sheeran", "Bruno Mars", "Justin Bieber", "Adele"],
+    "respuestaCorrecta": "Ed Sheeran",
+    "categoria": "Música",
     "dificultad": "fácil",
     "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Cuál es el género musical asociado con Bob Marley?",
+    "opciones": ["Reggae", "Rock", "Jazz", "Blues"],
+    "respuestaCorrecta": "Reggae",
+    "categoria": "Música",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Qué banda lanzó el álbum 'The Dark Side of the Moon'?",
+    "opciones": ["Pink Floyd", "Led Zeppelin", "The Rolling Stones", "Queen"],
+    "respuestaCorrecta": "Pink Floyd",
+    "categoria": "Música",
+    "dificultad": "fácil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del instrumento de viento utilizado en jazz y blues que tiene una boquilla y teclas.",
+    "opciones": [],
+    "respuestaCorrecta": "Saxofón",
+    "categoria": "Música",
+    "dificultad": "fácil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del compositor que creó la 'Novena Sinfonía'.",
+    "opciones": [],
+    "respuestaCorrecta": "Beethoven",
+    "categoria": "Música",
+    "dificultad": "fácil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que Freddie Mercury fue el vocalista principal de Queen?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Música",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que el piano es un instrumento de cuerdas?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Música",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿La música country tiene sus raíces en Estados Unidos?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Música",
+    "dificultad": "intermedio",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Cuál es el nombre del género musical nacido en Nueva Orleans y popularizado por Louis Armstrong?",
+    "opciones": ["Jazz", "Blues", "Soul", "R&B"],
+    "respuestaCorrecta": "Jazz",
+    "categoria": "Música",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Qué cantante estadounidense es conocido como 'La Voz'?",
+    "opciones": ["Frank Sinatra", "Elvis Presley", "Ray Charles", "Nat King Cole"],
+    "respuestaCorrecta": "Frank Sinatra",
+    "categoria": "Música",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿En qué década se lanzó el álbum 'Thriller' de Michael Jackson?",
+    "opciones": ["Años 80", "Años 70", "Años 90", "Años 60"],
+    "respuestaCorrecta": "Años 80",
+    "categoria": "Música",
+    "dificultad": "intermedio",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre de la banda que compuso la canción 'Bohemian Rhapsody'.",
+    "opciones": [],
+    "respuestaCorrecta": "Queen",
+    "categoria": "Música",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del instrumento de cuerdas que se toca con un arco y es más pequeño que un chelo.",
+    "opciones": [],
+    "respuestaCorrecta": "Violín",
+    "categoria": "Música",
+    "dificultad": "intermedio",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "¿Es cierto que 'Carmina Burana' fue compuesta por Carl Orff?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Música",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Es cierto que Wolfgang Amadeus Mozart compuso más de 600 obras?",
+    "opciones": ["Verdadero", "Falso"],
+    "respuestaCorrecta": "Verdadero",
+    "categoria": "Música",
+    "dificultad": "difícil",
+    "tipoPregunta": "verdadero/falso"
+  },
+  {
+    "enunciado": "¿Qué compositor alemán es conocido por sus óperas, como 'El anillo del nibelungo'?",
+    "opciones": ["Richard Wagner", "Johann Sebastian Bach", "Ludwig van Beethoven", "Franz Schubert"],
+    "respuestaCorrecta": "Richard Wagner",
+    "categoria": "Música",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Cuál es el nombre del guitarrista principal de la banda Led Zeppelin?",
+    "opciones": ["Jimmy Page", "Eric Clapton", "Jimi Hendrix", "Keith Richards"],
+    "respuestaCorrecta": "Jimmy Page",
+    "categoria": "Música",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "¿Qué compositor ruso escribió 'El Cascanueces'?",
+    "opciones": ["Piotr Ilich Chaikovski", "Igor Stravinski", "Dmitri Shostakóvich", "Sergei Rachmaninov"],
+    "respuestaCorrecta": "Piotr Ilich Chaikovski",
+    "categoria": "Música",
+    "dificultad": "difícil",
+    "tipoPregunta": "selección múltiple"
+  },
+  {
+    "enunciado": "Escribe el nombre del instrumento de teclado inventado por Bartolomeo Cristofori.",
+    "opciones": [],
+    "respuestaCorrecta": "Piano",
+    "categoria": "Música",
+    "dificultad": "difícil",
+    "tipoPregunta": "input"
+  },
+  {
+    "enunciado": "Escribe el nombre del compositor de la ópera 'La Traviata'.",
+    "opciones": [],
+    "respuestaCorrecta": "Giuseppe Verdi",
+    "categoria": "Música",
+    "dificultad": "difícil",
+    "tipoPregunta": "input"
   }
 ]

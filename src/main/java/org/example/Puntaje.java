@@ -1,6 +1,6 @@
 package org.example;
 
-import java.io.Serializable;
+import java.io.*;
 
 public class Puntaje implements Serializable {
     private int puntos;
@@ -14,18 +14,34 @@ public class Puntaje implements Serializable {
     }
 
     public void sumarPuntosPorTipo(String tipoPregunta, boolean esCorrecta) {
-        int puntosAAsignar = 0;
+        if (!esCorrecta) return;
 
-        if (tipoPregunta.equalsIgnoreCase("verdadero/falso")) {
-            puntosAAsignar = esCorrecta ? 5 : 0;
-        } else if (tipoPregunta.equalsIgnoreCase("input")) {
-            puntosAAsignar = esCorrecta ? 15 : 0;
-        } else if (tipoPregunta.equalsIgnoreCase("selección múltiple")) {
-            puntosAAsignar = esCorrecta ? 10 : 0;
+        int puntosAAsignar = switch (tipoPregunta.toLowerCase()) {
+            case "verdadero/falso" -> 5;
+            case "selección múltiple" -> 10;
+            case "input" -> 15;
+            default -> 0;
+        };
+
+        this.puntos += puntosAAsignar;
+    }
+
+
+    public void guardarPuntaje(String archivo) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
+            oos.writeObject(this);
+            System.out.println("Puntaje guardado correctamente.\n");
+        } catch (IOException e) {
+            System.out.println("Error al guardar el puntaje: \n" + e.getMessage());
         }
+    }
 
-        if (esCorrecta) {
-            this.puntos += puntosAAsignar;
+    public static Puntaje cargarPuntaje(String archivo) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(archivo))) {
+            return (Puntaje) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al cargar el puntaje: \n" + e.getMessage());
+            return null;
         }
     }
 
